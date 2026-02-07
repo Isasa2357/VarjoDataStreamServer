@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="VarjoDataStreamServer/VarjoDataStreamServer.vcxproj" Id="08237c41-b4ac-4664-9bf3-25f53f377b8a" />
+</Solution>

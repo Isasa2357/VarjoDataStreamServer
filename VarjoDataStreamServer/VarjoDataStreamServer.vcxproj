@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>18.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{08237c41-b4ac-4664-9bf3-25f53f377b8a}</ProjectGuid>
+    <RootNamespace>VarjoDataStreamServer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_UNICODE;UNICODE;NOMINMAX;GLEW_STATIC;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\VarjoNativeSDK\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\OpenVR\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\Json\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\ImGui\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\D3DX12\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\GLM\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\Glew\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\FreeType\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\cxxopts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>VarjoLib.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;windowscodecs.lib;freetyped.lib;ImGui.lib;ImGuiBackends.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\vendor\VarjoNativeSDK\lib;$(ProjectDir)\vendor\FreeType\lib\x86_64\Debug;$(ProjectDir)\vendor\Glew\lib\x86_64\Debug;$(ProjectDir)\vendor\ImGui\lib\x86_64\Debug;$(ProjectDir)\vendor\OpenVR\lib\x86_64\Debug;C:\personal\iwatake\VarjoNativeSDKDevelop\sample_PostProcessing\sample_PostProcessing\vendor\Glew\lib\x86_64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);WIN32;_WINDOWS;_UNICODE;UNICODE;NOMINMAX;GLEW_STATIC;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\VarjoNativeSDK\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\OpenVR\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\Json\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\ImGui\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\D3DX12\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\GLM\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\Glew\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\FreeType\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\cxxopts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>VarjoLib.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;windowscodecs.lib;freetype.lib;ImGui.lib;ImGuiBackends.lib;d3d12.lib;opengl32.lib;libglew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\VarjoNativeSDK\lib;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\OpenVR\lib\x86_64\Release;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\ImGui\lib\x86_64\Release;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\Glew\lib\x86_64\Release;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\FreeType\lib\x86_64\Release</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="DataStreamer.cpp" />
+    <ClCompile Include="Globals.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Session.cpp" />
+    <ClCompile Include="Undistorter.cpp" />
+    <ClCompile Include="VarjoDataStreamServer.cpp" />
+    <ClCompile Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.cpp" />
+    <ClCompile Include="VarjoVSTFrame\VarjoVSTVideoPreviewer.cpp" />
+    <ClCompile Include="VarjoVSTFrame\VarjoVSTVideoWriter.cpp" />
+    <ClCompile Include="VarjoVSTFrame\VSTCamStreamer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DataStreamer.hpp" />
+    <ClInclude Include="Globals.hpp" />
+    <ClInclude Include="Session.hpp" />
+    <ClInclude Include="Undistorter.hpp" />
+    <ClInclude Include="VarjoDataStreamServer.hpp" />
+    <ClInclude Include="VarjoVSTFrame\utility.hpp" />
+    <ClInclude Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.hpp" />
+    <ClInclude Include="VarjoVSTFrame\VarjoVSTVideoPreviewer.hpp" />
+    <ClInclude Include="VarjoVSTFrame\VarjoVSTVideoWriter.hpp" />
+    <ClInclude Include="VarjoVSTFrame\varjo_vst_frame_type.hpp" />
+    <ClInclude Include="VarjoVSTFrame\VSTCamStreamer.hpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
