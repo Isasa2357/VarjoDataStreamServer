@@ -1,7 +1,11 @@
 #include "VarjoVSTVideoWriter.hpp"
 
 namespace {
-	std::string check_out_path(const std::string& out_path, const VarjoVSTFrame::Codec codec, const VarjoVSTFrame::VideoContainer container) {
+	std::string check_out_path(
+		const std::string& out_path, 
+		const VarjoVSTFrame::VideoContainer container, 
+		const VarjoVSTFrame::EncodeOptions encode_opt
+	) {
 		//----- out_pathのコンテナ確認．設定と違えば強制変更
 		auto container_str = VarjoVSTFrame::videoContainer_toString(container);
 
@@ -30,20 +34,15 @@ namespace VarjoVSTFrame {
 		const size_t width,
 		const size_t height,
 		const size_t row_stride,
-		const Codec codec,
-		const VideoContainer container,
-		const std::string out_path,
-		const int crf,
-		const int framerate, 
+		const VideoWriteEncodeOptions vw_encode_opt,
 		const InputFramedataPaddingOption pad_opt
 	) : width_(width),
 		height_(height),
 		row_stride_(row_stride),
-		codec_(codec),
-		container_(container), 
-		out_path_(check_out_path(out_path, codec, container)),
-		crf_(crf),
-		framerate_(framerate),
+		framerate_(vw_encode_opt.framerate), 
+		out_path_(vw_encode_opt.out_path), 
+		vcontainer_(vw_encode_opt.container), 
+		encode_opt_(vw_encode_opt.encode_opt), 
 		ffmpeg_pipe_(nullptr), 
 		pad_opt_(pad_opt)
 	{
@@ -71,6 +70,7 @@ namespace VarjoVSTFrame {
 
 	std::string VarjoVSTVideoWriter::get_ffmpegCmd() const
 	{
+		//----- 入力部分のコマンドを作成
 		const std::string input_part = std::format(
 			"ffmpeg -y "
 			"-f rawvideo -pix_fmt nv12 -video_size {}x{} -framerate {} -i pipe:0 "
@@ -78,56 +78,22 @@ namespace VarjoVSTFrame {
 			this->width_, this->height_, this->framerate_
 		);
 
-		std::string ffmpegCmd_each_container_part = "";
-		switch (this->container_) {
-		case VideoContainer::mp4:
-			ffmpegCmd_each_container_part = "-movflags +faststart ";
-			break;
-		case VideoContainer::mkv:
-			break;
-		}
+		//----- コンテナ別のコマンドを作成
+		std::string each_container_cmd_part = "";
+		if (this->vcontainer_ == VideoContainer::mp4) {
+			each_container_cmd_part = "-movflags +faststart ";
+		} else if (this->vcontainer_ == VideoContainer::mkv) {
+			// 何もなし
+		} 
 
+		// エンコード部分のコマンドを作成
 		std::string encode_part = "";
-		switch (this->codec_) {
-		case Codec::libx264:
-			encode_part = std::format(
-				"-c:v libx264 -preset veryfase -crf {} -pix_fmt yuv420p {} {}",
-				this->crf_, ffmpegCmd_each_container_part, this->out_path_
-			);
-			break;
-		case Codec::h264_nvenc:
-			encode_part = std::format(
-				"-c:v h264_nvenc -preset p1 -rc vbr_hq -cq {} -pix_fmt yuv420p {} {}",
-				this->crf_, ffmpegCmd_each_container_part, this->out_path_
-			);
-			break;
-		case Codec::ffv1:
-			encode_part = std::format(
-				"-c:v ffv1 -level 3 -pix_fmt yuv420p {} {}", 
-				this
-			)
-		}
+		if (std::holds_alternative<X264Options>(this->encode_opt_)) {
 
-		if (device == Device::GPU) {
-			return std::format(
-				"ffmpeg -y "
-				"-f rawvideo -pix_fmt nv12 -video_size {}x{} -framerate {} -i pipe:0 "
-				"-an -c:v {} "
-				"-preset p1 "
-				"-rc constqp -qp 0 "
-				"-spatial_aq 0 -temporal_aq 0 "
-				"-pix_fmt yuv420p "
-				"-movflags +faststart \"{}\"",
-				this->width_, this->height_, this->framerate_,
-				codec_toString(this->codec_), this->out_path_);
-		} else {
-			return std::format(
-				"ffmpeg -y "
-				"-f rawvideo -pix_fmt nv12 -video_size {}x{} -framerate {} -i pipe:0 "
-				"-an -c:v libx264 -preset veryfast -crf 0 "
-				"-pix_fmt yuv420p "
-				"-movflags +faststart \"{}\"",
-				this->width_, this->height_, this->framerate_, this->out_path_);
+		} else if (std::holds_alternative<NvencH264Options>(this->encode_opt_)) {
+
+		} else if (std::holds_alternative<Ffv1Options>(this->encode_opt_)) {
+
 		}
 	}
 	// -------------------- VarjoVST Serial Video Writer --------------------
@@ -136,22 +102,9 @@ namespace VarjoVSTFrame {
 		const size_t width,
 		const size_t height,
 		const size_t row_stride,
-		const Codec codec,
-		const VideoContainer container,
-		const std::string out_path,
-		const int crf,
-		const int framerate, 
+		const VideoWriteEncodeOptions vw_encode_opt,
 		const InputFramedataPaddingOption pad_opt
-	) : VarjoVSTVideoWriter(
-		width,
-		height,
-		row_stride,
-		codec,
-		container, 
-		out_path,
-		crf,
-		framerate, 
-		pad_opt)
+	) : VarjoVSTVideoWriter(width, height, row_stride, vw_encode_opt, pad_opt)
 	{}
 
 	VarjoVSTSerialVideoWriter::~VarjoVSTSerialVideoWriter() {
@@ -193,26 +146,13 @@ namespace VarjoVSTFrame {
 	// -------------------- VarjoVST Parallel Video Writer --------------------
 
 	VarjoVSTParallelVideoWriter::VarjoVSTParallelVideoWriter(
-		const size_t width, 
-		const size_t height, 
-		const size_t row_stride, 
-		const Codec codec,
-		const VideoContainer container, 
-		const std::string out_path, 
-		const int crf,
-		const int framerate, 
+		const size_t width,
+		const size_t height,
+		const size_t row_stride,
+		const VideoWriteEncodeOptions vw_encode_opt,
 		const InputFramedataPaddingOption pad_opt
-	) : VarjoVSTVideoWriter(
-		width,
-		height,
-		row_stride,
-		codec,
-		container,
-		out_path,
-		crf,
-		framerate,
-		pad_opt), 
-		frameData_submitQue(std::deque<std::vector<uint8_t>>())
+	) : VarjoVSTVideoWriter(width, height, row_stride, vw_encode_opt, pad_opt)
+	  , frameData_submitQue(std::deque<std::vector<uint8_t>>())
 	{}
 
 	VarjoVSTParallelVideoWriter::~VarjoVSTParallelVideoWriter() {
@@ -303,23 +243,16 @@ namespace VarjoVSTFrame {
 		const size_t width,
 		const size_t height,
 		const size_t row_stride,
-		const Codec codec,
-		const VideoContainer container,
-		const std::string out_path,
-		const int crf,
-		const int framerate,
+		const VideoWriteEncodeOptions vw_encode_opt, 
 		const VideoWriterType writer_type,
-		const InputFramedataPaddingOption pad_opt) {
+		const InputFramedataPaddingOption pad_opt
+	) {
 		VarjoVSTVideoWriterOptions opt;
 
 		opt.width = width;
 		opt.height = height;
 		opt.row_stride = row_stride;
-		opt.codec = codec;
-		opt.container = container;
-		opt.out_path = out_path;
-		opt.crf = crf;
-		opt.framerate;
+		opt.vw_encode_opt = vw_encode_opt;
 		opt.writer_type = writer_type;
 		opt.pad_opt = pad_opt;
 
@@ -332,12 +265,8 @@ namespace VarjoVSTFrame {
 				new VarjoVSTSerialVideoWriter(
 					opt.width,
 					opt.height,
-					opt.row_stride,
-					opt.codec,
-					opt.container, 
-					opt.out_path,
-					opt.crf,
-					opt.framerate, 
+					opt.row_stride, 
+					opt.vw_encode_opt, 
 					opt.pad_opt
 				)
 			);
@@ -347,11 +276,7 @@ namespace VarjoVSTFrame {
 					opt.width,
 					opt.height,
 					opt.row_stride,
-					opt.codec,
-					opt.container, 
-					opt.out_path,
-					opt.crf,
-					opt.framerate, 
+					opt.vw_encode_opt,
 					opt.pad_opt
 				)
 			);

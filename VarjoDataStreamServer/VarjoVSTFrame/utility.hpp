@@ -50,22 +50,6 @@ namespace VarjoVSTFrame {
 		return out_frameData;
 	}
 
-	/**
-	 * @brief コーデック列挙型を文字列に変換する
-	 *
-	 * @return string型に変換したコーディック
-	 */
-	inline std::string codec_toString(const Codec codec) {
-		switch (codec) {
-		case Codec::libx264:
-			return "libx264";
-		case Codec::h264_nvenc:
-			return "h264_nvenc";
-		default:
-			return "libx264";
-		}
-	}
-
 	inline std::string videoContainer_toString(const VideoContainer container) {
 		switch (container) {
 		case VideoContainer::mp4:
@@ -74,22 +58,6 @@ namespace VarjoVSTFrame {
 			return "mkv";
 		default:
 			return "mp4";
-		}
-	}
-
-	/**
-	 * @brief コーデックから使用デバイスを取得する
-	 *
-	 * @return 使用デバイス
-	 */
-	inline Device get_device_from_codec(const Codec codec) {
-		switch (codec) {
-		case Codec::libx264:
-			return Device::CPU;
-		case Codec::h264_nvenc:
-			return Device::GPU;
-		default:
-			return Device::CPU;
 		}
 	}
 
