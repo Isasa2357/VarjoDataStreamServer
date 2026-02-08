@@ -4,6 +4,8 @@
 #include <span>
 #include <cstdint>
 
+#include "varjo_vst_frame_type.hpp"
+
 namespace VarjoVSTFrame {
 
 	inline void remove_padding(
@@ -46,5 +48,170 @@ namespace VarjoVSTFrame {
 		std::vector<uint8_t> out_frameData(width * height + (width * height) / 2);
 		remove_padding(raw_frameData, out_frameData, width, height, row_stride);
 		return out_frameData;
+	}
+
+	/**
+	 * @brief コーデック列挙型を文字列に変換する
+	 *
+	 * @return string型に変換したコーディック
+	 */
+	inline std::string codec_toString(const Codec codec) {
+		switch (codec) {
+		case Codec::libx264:
+			return "libx264";
+		case Codec::h264_nvenc:
+			return "h264_nvenc";
+		default:
+			return "libx264";
+		}
+	}
+
+	inline std::string videoContainer_toString(const VideoContainer container) {
+		switch (container) {
+		case VideoContainer::mp4:
+			return "mp4";
+		case VideoContainer::mkv:
+			return "mkv";
+		default:
+			return "mp4";
+		}
+	}
+
+	/**
+	 * @brief コーデックから使用デバイスを取得する
+	 *
+	 * @return 使用デバイス
+	 */
+	inline Device get_device_from_codec(const Codec codec) {
+		switch (codec) {
+		case Codec::libx264:
+			return Device::CPU;
+		case Codec::h264_nvenc:
+			return Device::GPU;
+		default:
+			return Device::CPU;
+		}
+	}
+
+	//------------------------------ codec option factory
+
+	X264Options make_X264Options(
+		const X264Options::X264Preset preset, 
+		const X264Options::Mode mode = X264Options::Mode::Crf,
+		const int crf = 19, 
+		const int qp = 0
+	) {
+		X264Options opt;
+		
+		opt.preset = preset;
+		opt.mode = mode;
+		opt.crf = crf;
+		opt.qp = qp;
+
+		return opt;
+	}
+
+	X264Options make_X264Options(const Quality quality) {
+		X264Options opt;
+		opt.preset = X264Options::X264Preset::Veryfast;
+
+		opt.mode = X264Options::Mode::Crf;
+
+		switch (quality) {
+		case Quality::Lossless:
+			opt.crf = 0;  
+			break;
+		case Quality::High:
+			opt.crf = 18;
+			break;
+		case Quality::Medium:
+			opt.crf = 23;
+			break;
+		case Quality::Low:
+			opt.crf = 28;
+			break;
+		default:
+			opt.crf = 19;
+			break;
+		}
+
+		opt.qp = 0;
+		return opt;
+	}
+
+
+	NvencH264Options make_NvencH264Options(
+		const NvencH264Options::NvencPreset preset,
+		const NvencH264Options::NvencRc rc = NvencH264Options::NvencRc::VbrHq,
+		const int cq = 19,
+		const int qp = 0,
+		const bool spatial_aq = false,
+		const bool temporal_aq = false
+	) {
+		NvencH264Options opt;
+
+		opt.preset = preset;
+		opt.rc = rc;
+		opt.cq = cq;
+		opt.qp = qp;
+		opt.spatial_aq = spatial_aq;
+		opt.temporal_aq = temporal_aq;
+
+		return opt;
+	}
+
+	NvencH264Options make_NvencH264Options(const Quality quality) {
+		NvencH264Options opt;
+		opt.preset = NvencH264Options::NvencPreset::P1;
+		opt.spatial_aq = false;
+		opt.temporal_aq = false;
+
+		switch (quality) {
+		case Quality::Lossless:
+			// “極力ロスレス狙い”
+			opt.rc = NvencH264Options::NvencRc::ConstQp;
+			opt.qp = 0;
+			opt.cq = 0;   // rc=ConstQp のときは基本無視される
+			break;
+		case Quality::High:
+			opt.rc = NvencH264Options::NvencRc::VbrHq;
+			opt.cq = 19;
+			opt.qp = 0;
+			break;
+		case Quality::Medium:
+			opt.rc = NvencH264Options::NvencRc::VbrHq;
+			opt.cq = 23;
+			opt.qp = 0;
+			break;
+		case Quality::Low:
+			opt.rc = NvencH264Options::NvencRc::VbrHq;
+			opt.cq = 28;
+			opt.qp = 0;
+			break;
+		default:
+			opt.rc = NvencH264Options::NvencRc::VbrHq;
+			opt.cq = 19;
+			opt.qp = 0;
+			break;
+		}
+
+		return opt;
+	}
+
+	Ffv1Options make_Ffv1Options(
+		const int level
+	) {
+		Ffv1Options opt;
+
+		opt.level = level;
+
+		return opt;
+	}
+
+	Ffv1Options make_Ffv1Options(const Quality quality)
+	{
+		Ffv1Options opt;
+		opt.level = 3; 
+		return opt;
 	}
 }

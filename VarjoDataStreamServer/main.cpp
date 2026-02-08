@@ -2,7 +2,7 @@
 #include <thread>
 #include <chrono>
 
-#include "VarjoVSTFrame/VSTCamStreamer.hpp"
+#include "VarjoVSTFrame/VarjoVSTCamStreamer.hpp"
 #include "VarjoVSTFrame/VarjoVSTVideoPreviewer.hpp"
 #include "VarjoVSTFrame/VarjoVSTVideoWriter.hpp"
 
@@ -18,13 +18,13 @@ int main(void)
 
 		// ストリームの開始
 		
-		VarjoVSTFrame::VSTCamStreamer dstreamer(session, varjo_ChannelFlag_First | varjo_ChannelFlag_Second);
+		VarjoVSTFrame::VarjoVSTCamStreamer dstreamer(session, varjo_ChannelFlag_First | varjo_ChannelFlag_Second);
 		auto stream_config = dstreamer.getConfig();
 		auto width = stream_config->width;
 		auto height = stream_config->height;
 		auto row_stride = stream_config->rowStride;
 		VarjoVSTFrame::VarjoVSTSerialVideoPreviewer viewer(width, height, row_stride);
-		VarjoVSTFrame::VarjoVSTParallelVideoWriter writer(width, height, row_stride, VarjoVSTFrame::Codec::libx264, "left_vstvideo_byVSTWriter.mp4", 18, 90, 20);
+		VarjoVSTFrame::VarjoVSTParallelVideoWriter writer(width, height, row_stride, VarjoVSTFrame::Codec::h264_nvenc, VarjoVSTFrame::VideoContainer::mp4, "left_vstvideo_byVSTWriter.mp4", 18, 90, VarjoVSTFrame::InputFramedataPaddingOption::WithPadding);
 		dstreamer.startStream();
 		viewer.open();
 		writer.open();

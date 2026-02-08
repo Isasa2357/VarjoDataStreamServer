@@ -12,14 +12,14 @@
 #include "../Session.hpp"
 
 namespace VarjoVSTFrame {
-	class VSTCamStreamer {
+	class VarjoVSTCamStreamer {
 	public:
 		using Frame = VarjoExamples::DataStreamer::Frame;
 		using Framedata = std::vector<uint8_t>;
 		using Metadata = VarjoExamples::DataStreamer::Frame::Metadata;
 		
 	public:
-		VSTCamStreamer(const std::shared_ptr<Session>& session, varjo_ChannelFlag chnls, const size_t buffer_capacity=20);
+		VarjoVSTCamStreamer(const std::shared_ptr<Session>& session, varjo_ChannelFlag chnls, const size_t buffer_capacity=20);
 	
 		/**
 		 * @brief Datastream‚ÌÚ×‚ğæ“¾‚·‚éD
