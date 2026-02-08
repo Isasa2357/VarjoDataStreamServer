@@ -8,10 +8,18 @@
 #include <thread>
 #include <condition_variable>
 #include <mutex>
+#include <variant>
 
+#include "utility.hpp"
 #include "varjo_vst_frame_type.hpp"
 
+
 namespace VarjoVSTFrame {
+
+	enum class VideoWriterType {
+		Serial, Parallel
+	};
+
 	/**
 	 * @brief VarjoのData Stream APIから取得できるVSTカメラフレームを動画として書き出すクラス
 	 * @detail
@@ -41,10 +49,11 @@ namespace VarjoVSTFrame {
 			const size_t height,
 			const size_t row_stride,
 			const Codec codec,
+			const VideoContainer container,
 			const std::string out_path,
 			const int crf,
-			const int framerate
-			
+			const int framerate, 
+			const InputFramedataPaddingOption pad_opt
 		);
 
 		/**
@@ -103,8 +112,6 @@ namespace VarjoVSTFrame {
 		 */
 		inline std::string get_ffmpegCmd() const;
 
-		void remove_padding(const std::vector<uint8_t>& raw_frameData, std::vector<uint8_t>& out_frameData) const;
-
 		// frameSize
 		const size_t width_;							///! without padding
 		const size_t height_;							///! without padding
@@ -112,12 +119,16 @@ namespace VarjoVSTFrame {
 
 		// write video
 		const Codec codec_;								///! video codec
+		const VideoContainer container_;
 		const std::string out_path_;					///! output video path
 
 		const int crf_;									///! quality
 		const int framerate_;							///! frame rate
 
 		FILE* ffmpeg_pipe_;								///! ffmpeg pipe
+
+		const InputFramedataPaddingOption pad_opt_;
+		std::vector<uint8_t> tight_frameData_;
 	};
 
 	class VarjoVSTSerialVideoWriter : public VarjoVSTVideoWriter {
@@ -128,9 +139,11 @@ namespace VarjoVSTFrame {
 			const size_t height,
 			const size_t row_stride,
 			const Codec codec,
+			const VideoContainer container,
 			const std::string out_path,
 			const int crf,
-			const int framerate
+			const int framerate, 
+			const InputFramedataPaddingOption pad_opt
 		);
 
 		~VarjoVSTSerialVideoWriter();
@@ -144,10 +157,6 @@ namespace VarjoVSTFrame {
 		 * @brief submit_frameの共通処理．ffmpegパイプにフレームデータを書き込む
 		 */
 		void submit_frame_impl(std::vector<uint8_t>&& frameData) override;
-
-		// for serial write
-		std::vector<uint8_t> tight_frameData_;
-		///! buffer for serial write
 	};
 
 	class VarjoVSTParallelVideoWriter : public VarjoVSTVideoWriter {
@@ -158,10 +167,11 @@ namespace VarjoVSTFrame {
 			const size_t height,
 			const size_t row_stride,
 			const Codec codec,
+			const VideoContainer container, 
 			const std::string out_path,
 			const int crf,
-			const int framerate,
-			const size_t buffer_size
+			const int framerate, 
+			const InputFramedataPaddingOption pad_opt
 		);
 
 		~VarjoVSTParallelVideoWriter();
@@ -191,8 +201,37 @@ namespace VarjoVSTFrame {
 		std::thread video_write_worker_thread_;
 		std::atomic_bool stop_worker_signal_{true};
 
-		// for write worker
-		std::vector<uint8_t> tight_frameData_;
 	};
 
+	struct VarjoVSTVideoWriterOptions {
+		size_t width;
+		size_t height;
+		size_t row_stride;
+		Codec codec;
+		VideoContainer container;
+		std::string out_path;
+		EncodeOptions encode_opt;
+
+		VideoWriterType writer_type;
+		InputFramedataPaddingOption pad_opt;
+	};
+
+	VarjoVSTVideoWriterOptions make_VideoWriterOption(
+		const size_t width, 
+		const size_t height,
+		const size_t row_stride,
+		const VideoContainer container, 
+		const std::string out_path,
+		const EncodeOptions encode_opt, 
+		const VideoWriterType writer_type,
+		const InputFramedataPaddingOption pad_opt
+	);
+
+	std::unique_ptr<VarjoVSTVideoWriter> factory_VideoWriterPtr(const VarjoVSTVideoWriterOptions opt);
 }
+
+/*
+	To Do
+	 - オプションによりクラスを構築するように変更
+	 - padding除去処理の有無を任意に変更
+*/

@@ -139,10 +139,9 @@
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="Undistorter.cpp" />
     <ClCompile Include="VarjoDataStreamServer.cpp" />
-    <ClCompile Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTVideoPreviewer.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTVideoWriter.cpp" />
-    <ClCompile Include="VarjoVSTFrame\VSTCamStreamer.cpp" />
+    <ClCompile Include="VarjoVSTFrame\VarjoVSTCamStreamer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStreamer.hpp" />
@@ -151,11 +150,10 @@
     <ClInclude Include="Undistorter.hpp" />
     <ClInclude Include="VarjoDataStreamServer.hpp" />
     <ClInclude Include="VarjoVSTFrame\utility.hpp" />
-    <ClInclude Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.hpp" />
     <ClInclude Include="VarjoVSTFrame\VarjoVSTVideoPreviewer.hpp" />
     <ClInclude Include="VarjoVSTFrame\VarjoVSTVideoWriter.hpp" />
     <ClInclude Include="VarjoVSTFrame\varjo_vst_frame_type.hpp" />
-    <ClInclude Include="VarjoVSTFrame\VSTCamStreamer.hpp" />
+    <ClInclude Include="VarjoVSTFrame\VarjoVSTCamStreamer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
