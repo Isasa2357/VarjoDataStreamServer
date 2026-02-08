@@ -4,9 +4,6 @@
 #include <variant>
 
 namespace VarjoVSTFrame {
-	enum class Codec {
-		libx264, h264_nvenc, ffv1
-	};
 
 	enum class VideoContainer {
 		mp4, mkv
@@ -55,5 +52,14 @@ namespace VarjoVSTFrame {
 		NvencH264Options, 
 		Ffv1Options
 	>;
+
+	struct VideoWriteEncodeOptions {
+		size_t width;
+		size_t height;
+		int framerate;
+		std::string out_path;
+		VideoContainer container;
+		EncodeOptions encode_opt;
+	};
 
 } // namespace VarjoVSTFrame

@@ -48,11 +48,7 @@ namespace VarjoVSTFrame {
 			const size_t width,
 			const size_t height,
 			const size_t row_stride,
-			const Codec codec,
-			const VideoContainer container,
-			const std::string out_path,
-			const int crf,
-			const int framerate, 
+			const VideoWriteEncodeOptions vw_encode_opt,
 			const InputFramedataPaddingOption pad_opt
 		);
 
@@ -89,10 +85,7 @@ namespace VarjoVSTFrame {
 		inline size_t width() const { return this->width_; }
 		inline size_t height() const { return this->height_; }
 		inline size_t row_stride() const { return this->row_stride_; }
-		inline Codec codec() const { return this->codec_; }
 		inline std::string out_path() const { return this->out_path_; }
-		inline int crf() const { return this->crf_; }
-		inline int framerate() const { return this->framerate_; }
 
 	protected:
 
@@ -118,12 +111,10 @@ namespace VarjoVSTFrame {
 		const size_t row_stride_;						///! width with padding
 
 		// write video
-		const Codec codec_;								///! video codec
-		const VideoContainer container_;
-		const std::string out_path_;					///! output video path
-
-		const int crf_;									///! quality
-		const int framerate_;							///! frame rate
+		const int framerate_;
+		const std::string out_path_;
+		const VideoContainer vcontainer_;
+		EncodeOptions encode_opt_;
 
 		FILE* ffmpeg_pipe_;								///! ffmpeg pipe
 
@@ -138,11 +129,7 @@ namespace VarjoVSTFrame {
 			const size_t width,
 			const size_t height,
 			const size_t row_stride,
-			const Codec codec,
-			const VideoContainer container,
-			const std::string out_path,
-			const int crf,
-			const int framerate, 
+			const VideoWriteEncodeOptions vw_encode_opt,
 			const InputFramedataPaddingOption pad_opt
 		);
 
@@ -166,11 +153,7 @@ namespace VarjoVSTFrame {
 			const size_t width,
 			const size_t height,
 			const size_t row_stride,
-			const Codec codec,
-			const VideoContainer container, 
-			const std::string out_path,
-			const int crf,
-			const int framerate, 
+			const VideoWriteEncodeOptions vw_encode_opt,
 			const InputFramedataPaddingOption pad_opt
 		);
 
@@ -207,22 +190,16 @@ namespace VarjoVSTFrame {
 		size_t width;
 		size_t height;
 		size_t row_stride;
-		Codec codec;
-		VideoContainer container;
-		std::string out_path;
-		EncodeOptions encode_opt;
-
+		VideoWriteEncodeOptions vw_encode_opt;
 		VideoWriterType writer_type;
 		InputFramedataPaddingOption pad_opt;
 	};
 
 	VarjoVSTVideoWriterOptions make_VideoWriterOption(
-		const size_t width, 
+		const size_t width,
 		const size_t height,
 		const size_t row_stride,
-		const VideoContainer container, 
-		const std::string out_path,
-		const EncodeOptions encode_opt, 
+		const VideoWriteEncodeOptions vw_encode_opt,
 		const VideoWriterType writer_type,
 		const InputFramedataPaddingOption pad_opt
 	);
