@@ -8,6 +8,14 @@
 
 namespace VarjoVSTFrame {
 
+	/**
+	 * @brief VSTフレームのパディングを削除する
+	 * @param raw_frameData DataStream APIから取得した生のVSTフレーム
+	 * @param out_frameData パディングが除去されたデータの出力先
+	 * @param width パディング除去後のフレームの幅
+	 * @param height フレームの高さ
+	 * @param row_stride パディング除去前のフレームの幅
+	 */
 	inline void remove_padding(
 		const std::vector<uint8_t>& raw_frameData,
 		std::vector<uint8_t>& out_frameData,
@@ -39,6 +47,14 @@ namespace VarjoVSTFrame {
 		}
 	}
 
+	/**
+	 * @brief VSTフレームのパディングを削除する
+	 * @param raw_frameData DataStream APIから取得した生のVSTフレーム
+	 * @param width パディング除去後のフレームの幅
+	 * @param height フレームの高さ
+	 * @param row_stride パディング除去前のフレームの幅
+	 * @return パディング除去後のフレーム
+	 */
 	inline std::vector<uint8_t> remove_padding(
 		const std::vector<uint8_t>& raw_frameData,
 		const size_t width,
@@ -63,6 +79,14 @@ namespace VarjoVSTFrame {
 
 	//------------------------------ codec option factory
 
+	/**
+	 * @brief x264エンコードオプションを作るヘルパ関数
+	 * @param preset presetオプション．動画の圧縮率と処理速度の調整を行える
+	 * @param mode crf固定かqp固定かの選択．基本的にcrfを指定すればok
+	 * @param crf mode=crf時に有効．crf値を設定．小さいほど高精度．
+	 * @param qp mode=qp時に有効．小さいほど高精度
+	 * @return x264オプション
+	 */
 	X264Options make_X264Options(
 		const X264Options::X264Preset preset, 
 		const X264Options::Mode mode = X264Options::Mode::Crf,
@@ -79,6 +103,11 @@ namespace VarjoVSTFrame {
 		return opt;
 	}
 
+	/**
+	 * @brief x264エンコードオプションを品質を指定して作るヘルパ関数．詳細な設定はできない
+	 * @param quality 品質
+	 * @return x264オプション
+	 */
 	X264Options make_X264Options(const Quality quality) {
 		X264Options opt;
 		opt.preset = X264Options::X264Preset::Veryfast;
@@ -107,7 +136,14 @@ namespace VarjoVSTFrame {
 		return opt;
 	}
 
-
+	/**
+	 * @brief nvench264エンコードオプションを作るヘルパ関数
+	 * @param preset presetオプション．動画の圧縮率と処理速度の調整を行える
+	 * @param rc レート制御モード設定．理由がなければVbrHqでok
+	 * @param cq rc=VbarHq時に有効．
+	 * @param spatial_aq 
+	 * @param temporal_aq
+	 */
 	NvencH264Options make_NvencH264Options(
 		const NvencH264Options::NvencPreset preset,
 		const NvencH264Options::NvencRc rc = NvencH264Options::NvencRc::VbrHq,
@@ -128,6 +164,11 @@ namespace VarjoVSTFrame {
 		return opt;
 	}
 
+	/**
+	 * @brief nvenc_h264エンコードオプションを品質を指定して作るヘルパ関数．詳細な設定はできない
+	 * @param quality 品質
+	 * @return nvenc_h264オプション
+	 */
 	NvencH264Options make_NvencH264Options(const Quality quality) {
 		NvencH264Options opt;
 		opt.preset = NvencH264Options::NvencPreset::P1;
@@ -136,10 +177,9 @@ namespace VarjoVSTFrame {
 
 		switch (quality) {
 		case Quality::Lossless:
-			// “極力ロスレス狙い”
 			opt.rc = NvencH264Options::NvencRc::ConstQp;
 			opt.qp = 0;
-			opt.cq = 0;   // rc=ConstQp のときは基本無視される
+			opt.cq = 0;
 			break;
 		case Quality::High:
 			opt.rc = NvencH264Options::NvencRc::VbrHq;
