@@ -141,6 +141,7 @@ namespace VarjoVSTFrame {
 	 * @param preset presetオプション．動画の圧縮率と処理速度の調整を行える
 	 * @param rc レート制御モード設定．理由がなければVbrHqでok
 	 * @param cq rc=VbarHq時に有効．
+	 * @param qp 
 	 * @param spatial_aq 
 	 * @param temporal_aq
 	 */
@@ -206,6 +207,9 @@ namespace VarjoVSTFrame {
 		return opt;
 	}
 
+	/**
+	 * @brief FFV1エンコードオプションを作るヘルパ関数
+	 */
 	Ffv1Options make_Ffv1Options(
 		const int level
 	) {
@@ -216,6 +220,9 @@ namespace VarjoVSTFrame {
 		return opt;
 	}
 
+	/**
+	 * @brief FFV1エンコードオプションを品質を指定して作るヘルパ関数．FFV1は品質の調整はできないので，意味はない．
+	 */
 	Ffv1Options make_Ffv1Options(const Quality quality)
 	{
 		Ffv1Options opt;
