@@ -206,9 +206,3 @@ namespace VarjoVSTFrame {
 
 	std::unique_ptr<VarjoVSTVideoWriter> factory_VideoWriterPtr(const VarjoVSTVideoWriterOptions opt);
 }
-
-/*
-	To Do
-	 - オプションによりクラスを構築するように変更
-	 - padding除去処理の有無を任意に変更
-*/
