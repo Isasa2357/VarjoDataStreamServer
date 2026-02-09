@@ -105,7 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_UNICODE;UNICODE;NOMINMAX;GLEW_STATIC;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\VarjoNativeSDK\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\OpenVR\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\Json\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\ImGui\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\D3DX12\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\GLM\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\Glew\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\FreeType\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\cxxopts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\vendor\boost\include;$(ProjectDir)\vendor\VarjoNativeSDK\include;$(ProjectDir)\vendor\OpenVR\include;$(ProjectDir)\vendor\Json\include;$(ProjectDir)\vendor\ImGui\include;$(ProjectDir)\D3DX12\include;$(ProjectDir)\vendor\GLM\include;$(ProjectDir)\vendor\Glew\include;$(ProjectDir)\vendor\FreeType\include;$(ProjectDir)\vendor\cxxopts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +123,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);WIN32;_WINDOWS;_UNICODE;UNICODE;NOMINMAX;GLEW_STATIC;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\VarjoNativeSDK\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\OpenVR\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\Json\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\ImGui\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\D3DX12\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\GLM\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\Glew\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\FreeType\include;C:\personal\iwatake\VarjoNativeSDKDevelop\VarjoDataStreamServer\VarjoDataStreamServer\vendor\cxxopts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\vendor\VarjoNativeSDK\include;$(ProjectDir)\vendor\OpenVR\include;$(ProjectDir)\vendor\Json\include;$(ProjectDir)\vendor\ImGui\include;$(ProjectDir)\vendor\D3DX12\include;$(ProjectDir)\vendor\GLM\include;$(ProjectDir)\vendor\Glew\include;$(ProjectDir)\vendor\FreeType\include;$(ProjectDir)\vendor\boost\include;$(ProjectDir)\vendor\cxxopts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,6 +148,7 @@
     <ClInclude Include="Globals.hpp" />
     <ClInclude Include="Session.hpp" />
     <ClInclude Include="Undistorter.hpp" />
+    <ClInclude Include="util\vec_util.hpp" />
     <ClInclude Include="VarjoDataStreamServer.hpp" />
     <ClInclude Include="VarjoVSTFrame\utility.hpp" />
     <ClInclude Include="VarjoVSTFrame\VarjoVSTVideoPreviewer.hpp" />
