@@ -5,18 +5,30 @@
 
 namespace VarjoVSTFrame {
 
+	/**
+	 * @brief 動画ファイルのコンテナを示す．
+	 */
 	enum class VideoContainer {
 		mp4, mkv
 	};
 
+	/**
+	 * @brief 処理デバイスを示す．
+	 */
 	enum class Device {
 		CPU, GPU
 	};
 
+	/**
+	 * @brief 入力するフレームデータがパディング付きかそうでないかを示す．
+	 */
 	enum class InputFramedataPaddingOption {
 		WithoutPadding, WithPadding
 	};
 
+	/**
+	 * @brief エンコードのクオリティを示す．
+	 */
 	enum class Quality {
 		Lossless, High, Medium, Low
 	};
