@@ -10,6 +10,8 @@
 
 #include "../DataStreamer.hpp"
 #include "../Session.hpp"
+#include "varjo_vst_frame_type.hpp"
+
 
 namespace VarjoVSTFrame {
 	class VarjoVSTCamStreamer {
