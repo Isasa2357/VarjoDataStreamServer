@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include <span>
 #include <cstdint>
@@ -87,7 +88,7 @@ namespace VarjoVSTFrame {
 	 * @param qp mode=qp時に有効．小さいほど高精度
 	 * @return x264オプション
 	 */
-	X264Options make_X264Options(
+	inline X264Options make_X264Options(
 		const X264Options::X264Preset preset, 
 		const X264Options::Mode mode = X264Options::Mode::Crf,
 		const int crf = 19, 
@@ -108,7 +109,7 @@ namespace VarjoVSTFrame {
 	 * @param quality 品質
 	 * @return x264オプション
 	 */
-	X264Options make_X264Options(const Quality quality) {
+	inline X264Options make_X264Options(const Quality quality) {
 		X264Options opt;
 		opt.preset = X264Options::X264Preset::Veryfast;
 
@@ -145,7 +146,7 @@ namespace VarjoVSTFrame {
 	 * @param spatial_aq 
 	 * @param temporal_aq
 	 */
-	NvencH264Options make_NvencH264Options(
+	inline NvencH264Options make_NvencH264Options(
 		const NvencH264Options::NvencPreset preset,
 		const NvencH264Options::NvencRc rc = NvencH264Options::NvencRc::VbrHq,
 		const int cq = 19,
@@ -170,7 +171,7 @@ namespace VarjoVSTFrame {
 	 * @param quality 品質
 	 * @return nvenc_h264オプション
 	 */
-	NvencH264Options make_NvencH264Options(const Quality quality) {
+	inline NvencH264Options make_NvencH264Options(const Quality quality) {
 		NvencH264Options opt;
 		opt.preset = NvencH264Options::NvencPreset::P1;
 		opt.spatial_aq = false;
@@ -210,7 +211,7 @@ namespace VarjoVSTFrame {
 	/**
 	 * @brief FFV1エンコードオプションを作るヘルパ関数
 	 */
-	Ffv1Options make_Ffv1Options(
+	inline Ffv1Options make_Ffv1Options(
 		const int level
 	) {
 		Ffv1Options opt;
@@ -223,10 +224,74 @@ namespace VarjoVSTFrame {
 	/**
 	 * @brief FFV1エンコードオプションを品質を指定して作るヘルパ関数．FFV1は品質の調整はできないので，意味はない．
 	 */
-	Ffv1Options make_Ffv1Options(const Quality quality)
+	inline Ffv1Options make_Ffv1Options(const Quality quality)
 	{
 		Ffv1Options opt;
 		opt.level = 3; 
 		return opt;
+	}
+
+	inline VideoWriteEncodeOptions make_VideoWriteEncodeOptions(
+		const size_t width,
+		const size_t height,
+		const int framerate,
+		const std::string& out_path,
+		const VideoContainer container,
+		const EncodeOptions& encode_opt
+	) {
+		VideoWriteEncodeOptions options;
+		options.width = width;
+		options.height = height;
+		options.framerate = framerate;
+		options.out_path = out_path;
+		options.container = container;
+		options.encode_opt = encode_opt;
+		return options;
+	}
+
+	inline std::string x264Preset_toString(const X264Options::X264Preset preset) {
+		switch (preset) {
+		case X264Options::X264Preset::Ultrafast:
+			return "ultrafast";
+		case X264Options::X264Preset::Superfast:
+			return "superfast";
+		case X264Options::X264Preset::Veryfast:
+			return "veryfast";
+		case X264Options::X264Preset::Faster:
+			return "faster";
+		case X264Options::X264Preset::Fast:
+			return "fast";
+		case X264Options::X264Preset::Medium:
+			return "medium";
+		case X264Options::X264Preset::Slow:
+			return "slow";
+		case X264Options::X264Preset::Slower:
+			return "slower";
+		case X264Options::X264Preset::Veryslow:
+			return "veryslow";
+		default:
+			return "veryfast";
+		}
+	}
+
+	inline std::string nvencPreset_toString(const NvencH264Options::NvencPreset preset) {
+		switch (preset) {
+		case NvencH264Options::NvencPreset::P1:
+			return "p1";
+		case NvencH264Options::NvencPreset::P2:
+			return "p2";
+		case NvencH264Options::NvencPreset::P3:
+			return "p3";
+		case NvencH264Options::NvencPreset::P4:
+			return "p4";
+		case NvencH264Options::NvencPreset::P5:
+			return "p5";
+		case NvencH264Options::NvencPreset::P6:
+			return "p6";
+		case NvencH264Options::NvencPreset::P7:
+			return "p7";
+		default:
+			return "p1";
+		}
 	}
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <cstdint>
 #include <array>
 #include <vector>
@@ -11,19 +12,25 @@
 #include "../DataStreamer.hpp"
 #include "../Session.hpp"
 #include "varjo_vst_frame_type.hpp"
+#include "../util/vec_util.hpp"
+#include "../util/struct_json_io.hpp"
 
+#include "json/json.hpp"
+#include "json/json_fwd.hpp"
 
 namespace VarjoVSTFrame {
+
+	using Frame = VarjoExamples::DataStreamer::Frame;
+	using Framedata = std::vector<uint8_t>;
+	using Metadata = VarjoExamples::DataStreamer::Frame::Metadata;
+
+
 
 	/****************************************************************************************************
 	* @class VarjoVSTCamStreamer
 	* ****************************************************************************************************/
 
 	class VarjoVSTCamStreamer {
-	public:
-		using Frame = VarjoExamples::DataStreamer::Frame;
-		using Framedata = std::vector<uint8_t>;
-		using Metadata = VarjoExamples::DataStreamer::Frame::Metadata;
 		
 	public:
 		VarjoVSTCamStreamer(const std::shared_ptr<Session>& session, varjo_ChannelFlag chnls, const size_t buffer_capacity=20);
@@ -101,13 +108,9 @@ namespace VarjoVSTFrame {
 	 * @detail 保存済みのVSTカメラフレームデータを読み込み，VarjoVSTCamStreamerと同じインターフェースで提供する
 	 */
 	class VarjoVSTDummyCamStreamer {
-	public:
-		using Framedata = std::vector<uint8_t>;
-		using Metadata = VarjoExamples::DataStreamer::Frame::Metadata;
-		using Frame = VarjoExamples::DataStreamer::Frame;
 
 	public:
-		VarjoVSTDummyCamStreamer(varjo_ChannelFlag chnls=varjo_ChannelFlag_All, const size_t buffer_capacity=20, const int fps=90);
+		VarjoVSTDummyCamStreamer(varjo_ChannelFlag chnls = varjo_ChannelFlag_All, const size_t buffer_capacity = 20, const int fps = 90);
 
 		std::optional<varjo_StreamConfig> getConfig() const;
 
@@ -129,6 +132,15 @@ namespace VarjoVSTFrame {
 
 		const varjo_ChannelFlag	chnls_;
 
+		const int fps_;
+		std::atomic_bool stop_worker_signal_{true};
+		std::thread onFrame_thread_;
+
+		std::vector<Framedata> loaded_lframedata_;
+		std::vector<Metadata> loaded_lmetadata_;
+		std::vector<Framedata> loaded_rframedata_;
+		std::vector<Metadata> loaded_rmetadata_;
+
 		// for frame que
 		const size_t buffer_capacity_;
 		std::queue<Framedata> lframedata_que_;
@@ -137,6 +149,30 @@ namespace VarjoVSTFrame {
 		std::queue<Framedata> rframedata_que_;
 		std::queue<Metadata> rmetadata_que_;
 		std::mutex rframe_que_mtx_;
-	}
+	};
 }
 
+namespace nlohmann {
+
+	template <>
+	struct adl_serializer<VarjoVSTFrame::Metadata> {
+		static void to_json(json& j, const VarjoVSTFrame::Metadata& metadata) 
+		{
+			j["streamFrame"] = metadata.streamFrame;
+			j["channelIndex"] = metadata.channelIndex;
+			j["timestamp"] = metadata.timestamp;
+			j["extrinsics"] = metadata.extrinsics;
+			j["intrinsics"] = metadata.intrinsics;
+			j["bufferMetadata"] = metadata.bufferMetadata;
+		}
+
+		static void from_json(const json& j, VarjoVSTFrame::Metadata& metadata) {
+			j.at("streamFrame").get_to(metadata.streamFrame);
+			j.at("channelIndex").get_to(metadata.channelIndex);
+			j.at("timestamp").get_to(metadata.timestamp);
+			j.at("extrinsics").get_to(metadata.extrinsics);
+			j.at("intrinsics").get_to(metadata.intrinsics);
+			j.at("bufferMetadata").get_to(metadata.bufferMetadata);
+		}
+	};
+}
