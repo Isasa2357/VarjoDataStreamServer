@@ -200,5 +200,6 @@ namespace VarjoVSTFrame {
 		const InputFramedataPaddingOption pad_opt
 	);
 
-	std::unique_ptr<VarjoVSTVideoWriter> factory_VideoWriterPtr(const VarjoVSTVideoWriterOptions opt);
+	std::unique_ptr<VarjoVSTVideoWriter> factory_VarjoVSTVideoWriterPtr(const VarjoVSTVideoWriterOptions opt);
+	std::unique_ptr<ISubmitFramedata> factory_ISubmitFramePtr(const VarjoVSTVideoWriterOptions opt);
 }

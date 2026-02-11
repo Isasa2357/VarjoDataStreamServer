@@ -163,8 +163,8 @@ namespace VarjoVSTFrame {
 		return opt;
 	}
 
-
-	std::unique_ptr<VarjoVSTVideoPreviewer> factory_VideoPreviewerPtr(const VarjoVSTVideoPreviewerOptions& opt) {
+	std::unique_ptr<VarjoVSTVideoPreviewer> factory_VarjoVSTVideoPreviewer_ptr(const VarjoVSTVideoPreviewerOptions& opt)
+	{
 		switch (opt.previewer_type) {
 		case VideoPreviewerType::Serial:
 			return std::make_unique<VarjoVSTSerialVideoPreviewer>(
@@ -182,6 +182,33 @@ namespace VarjoVSTFrame {
 			);
 		default:
 			throw std::runtime_error("Unsupported Video Previewer Type");
+		}
+	}
+
+	std::unique_ptr<ISubmitFramedata> factory_ISubmitFrame_ptr(const VarjoVSTVideoPreviewerOptions& opt)
+	{
+		if (opt.previewer_type == VideoPreviewerType::Serial) {
+			return std::unique_ptr<VarjoVSTSerialVideoPreviewer>(
+				new VarjoVSTSerialVideoPreviewer(
+					opt.width,
+					opt.height,
+					opt.row_stride,
+					opt.pad_opt
+				)
+			);
+		}
+		else if (opt.previewer_type == VideoPreviewerType::Parallel) {
+			return std::unique_ptr<VarjoVSTParallelVideoPreviewer>(
+				new VarjoVSTParallelVideoPreviewer(
+					opt.width,
+					opt.height,
+					opt.row_stride,
+					opt.pad_opt
+				)
+			);
+		}
+		else {
+			throw std::invalid_argument("bad VideoPreviewerType exception");
 		}
 	}
 }
