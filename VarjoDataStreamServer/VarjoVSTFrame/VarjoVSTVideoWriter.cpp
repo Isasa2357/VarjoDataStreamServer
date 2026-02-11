@@ -262,12 +262,36 @@ namespace VarjoVSTFrame {
 		return opt;
 	}
 
-	std::unique_ptr<VarjoVSTVideoWriter> factory_VideoWriterPtr(const VarjoVSTVideoWriterOptions opt) {
+	std::unique_ptr<VarjoVSTVideoWriter> factory_VarjoVSTVideoWriterPtr(const VarjoVSTVideoWriterOptions opt)
+	{
 		if (opt.writer_type == VideoWriterType::Serial) {
 			return std::unique_ptr<VarjoVSTSerialVideoWriter>(
 				new VarjoVSTSerialVideoWriter(
-					opt.vw_encode_opt, 
-					opt.row_stride, 
+					opt.vw_encode_opt,
+					opt.row_stride,
+					opt.pad_opt
+				)
+			);
+		} else if (opt.writer_type == VideoWriterType::Parallel) {
+			return std::unique_ptr<VarjoVSTParallelVideoWriter>(
+				new VarjoVSTParallelVideoWriter(
+					opt.vw_encode_opt,
+					opt.row_stride,
+					opt.pad_opt
+				)
+			);
+		} else {
+			throw std::invalid_argument("bad VideoWriterType exception");
+		}
+	}
+
+	std::unique_ptr<ISubmitFramedata> factory_ISubmitFramePtr(const VarjoVSTVideoWriterOptions opt)
+	{
+		if (opt.writer_type == VideoWriterType::Serial) {
+			return std::unique_ptr<VarjoVSTSerialVideoWriter>(
+				new VarjoVSTSerialVideoWriter(
+					opt.vw_encode_opt,
+					opt.row_stride,
 					opt.pad_opt
 				)
 			);

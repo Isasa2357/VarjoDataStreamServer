@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VSTCamStreamer.hpp"
+#include "VarjoVSTCamStreamer.hpp"
 #include "VarjoVSTVideoPreviewer.hpp"
 #include "VarjoVSTVideoWriter.hpp"
 

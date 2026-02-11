@@ -120,9 +120,8 @@ namespace VarjoVSTFrame {
 		const VideoPreviewerType previewer_type
 	);
 
-	std::unique_ptr<VarjoVSTVideoPreviewer> make_VarjoVSTVideoPreviewer(
-		const VarjoVSTVideoPreviewerOptions& previewer_options
-	);
+	std::unique_ptr<VarjoVSTVideoPreviewer> factory_VarjoVSTVideoPreviewer_ptr(const VarjoVSTVideoPreviewerOptions& opt);
+	std::unique_ptr<ISubmitFramedata> factory_ISubmitFrame_ptr(const VarjoVSTVideoPreviewerOptions& opt);
 	
 
 } // namespace VarjoVSTFrame
