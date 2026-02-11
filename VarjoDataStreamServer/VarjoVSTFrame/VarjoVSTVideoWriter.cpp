@@ -51,14 +51,24 @@ namespace VarjoVSTFrame {
 		this->close();
 	}
 
-	void VarjoVSTVideoWriter::submit_frame(const std::vector<uint8_t>& frameData)
+	void VarjoVSTVideoWriter::submit_framedata(const Framedata& framedata, const Metadata& metadata)
 	{
-		this->submit_frame_impl(std::move(std::vector<uint8_t>(frameData)));
+		this->submit_framedata_impl(Framedata(framedata), Metadata(metadata));
 	}
 
-	void VarjoVSTVideoWriter::submit_frame(std::vector<uint8_t>&& frameData)
+	void VarjoVSTVideoWriter::submit_framedata(const Framedata & framedata, Metadata && metadata)
 	{
-		this->submit_frame_impl(std::move(frameData));
+		this->submit_framedata_impl(Framedata(framedata), std::move(metadata));
+	}
+
+	void VarjoVSTVideoWriter::submit_framedata(Framedata && framedata, const Metadata & metadata)
+	{
+		this->submit_framedata_impl(std::move(framedata), Metadata(metadata));
+	}
+
+	void VarjoVSTVideoWriter::submit_framedata(Framedata && framedata, Metadata && metadata)
+	{
+		this->submit_framedata_impl(std::move(framedata), std::move(metadata));
 	}
 
 	std::string VarjoVSTVideoWriter::get_ffmpegCmd() const
@@ -126,7 +136,7 @@ namespace VarjoVSTFrame {
 		}
 	}
 
-	void VarjoVSTSerialVideoWriter::submit_frame_impl(std::vector<uint8_t>&& frameData)
+	void VarjoVSTSerialVideoWriter::submit_framedata_impl(Framedata&& frameData, Metadata&& metadata)
 	{
 		if (this->pad_opt_ == InputFramedataPaddingOption::WithPadding) {
 			remove_padding(frameData, this->tight_frameData_, this->width_, this->height_, this->row_stride_);
@@ -188,7 +198,7 @@ namespace VarjoVSTFrame {
 		}
 	}
 
-	void VarjoVSTParallelVideoWriter::submit_frame_impl(std::vector<uint8_t>&& frameData) {
+	void VarjoVSTParallelVideoWriter::submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) {
 		{
 			std::lock_guard submitQue_lk(this->submitQue_mutex_);
 

@@ -371,3 +371,8 @@ vendor/
 *.obj
 *.ilk
 *.exp
+
+# 動画やcsvなどの記録ファイルは無視
+.csv
+.mp4
+.mkv
