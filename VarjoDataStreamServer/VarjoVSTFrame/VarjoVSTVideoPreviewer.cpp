@@ -31,7 +31,7 @@ namespace VarjoVSTFrame {
 	}
 
 	std::string VarjoVSTVideoPreviewer::get_ffmpegCmd() const {
-		return std::format("ffplay -f rawvideo -pixel_format nv12 -video_size {}x{} -framerate 90 -use_wallclock_as_timestamps 1 -i - -sync ext -fflags nobuffer -flags low_delay -noinfbuf -framedrop -an -autoexit", this->width_, this->height_);
+		return std::format("ffplay -hide_banner -loglevel error -f rawvideo -pixel_format nv12 -video_size {}x{} -framerate 90 -use_wallclock_as_timestamps 1 -i - -sync ext -fflags nobuffer -flags low_delay -noinfbuf -framedrop -an -autoexit", this->width_, this->height_);
 	}
 
 	//-------------------- VarjoVST Serial Video Previewer --------------------

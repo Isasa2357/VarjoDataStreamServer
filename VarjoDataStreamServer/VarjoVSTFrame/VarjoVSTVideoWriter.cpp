@@ -38,7 +38,7 @@ namespace VarjoVSTFrame {
 		, height_(vw_encode_opt.height)
 		, row_stride_(row_stride)
 		, framerate_(vw_encode_opt.framerate)
-		, out_path_(check_out_path(vw_encode_opt.out_path, vw_encode_opt.container, vw_encode_opt.encode_opt))
+		, out_path_(vw_encode_opt.out_path)
 		, vcontainer_(vw_encode_opt.container)
 		, encode_opt_(vw_encode_opt.encode_opt)
 		, ffmpeg_pipe_(nullptr)
@@ -65,7 +65,7 @@ namespace VarjoVSTFrame {
 	{
 		//----- 入力部分のコマンドを作成
 		const std::string input_part = std::format(
-			"ffmpeg -y "
+			"ffmpeg -hide_banner -loglevel error -y "
 			"-f rawvideo -pix_fmt nv12 -video_size {}x{} -framerate {} -i pipe:0 "
 			"-an ",
 			this->width_, this->height_, this->framerate_
@@ -82,12 +82,18 @@ namespace VarjoVSTFrame {
 		// エンコード部分のコマンドを作成
 		std::string encode_part = "";
 		if (std::holds_alternative<X264Options>(this->encode_opt_)) {
-
+			auto x264_encodeopt = std::get<X264Options>(this->encode_opt_);
+			encode_part = std::format(
+				"-c:v libx264 -preset {} -pix_fmt yuv420p {}",
+				x264Preset_toString(x264_encodeopt.preset), out_path_
+			);
 		} else if (std::holds_alternative<NvencH264Options>(this->encode_opt_)) {
 
 		} else if (std::holds_alternative<Ffv1Options>(this->encode_opt_)) {
 
 		}
+
+		return input_part + each_container_cmd_part + encode_part;
 	}
 	// -------------------- VarjoVST Serial Video Writer --------------------
 
@@ -105,6 +111,7 @@ namespace VarjoVSTFrame {
 	bool VarjoVSTSerialVideoWriter::open()
 	{
 		auto ffmpeg_cmd = this->get_ffmpegCmd();
+		printf(ffmpeg_cmd.c_str());
 
 		this->ffmpeg_pipe_ = _popen(ffmpeg_cmd.c_str(), "wb");
 
@@ -126,12 +133,16 @@ namespace VarjoVSTFrame {
 		} else {
 			this->tight_frameData_ = std::move(frameData);
 		}
+		std::cout << "write start\n";
+		std::cout << "tight_frameData_ size: " << this->tight_frameData_.size() << "\n";
+
 		size_t written_size = fwrite(
 			this->tight_frameData_.data(),
 			sizeof(uint8_t),
 			this->tight_frameData_.size(),
 			this->ffmpeg_pipe_
 		);
+		std::cout << "write done\n";
 	}
 
 	// -------------------- VarjoVST Parallel Video Writer --------------------
@@ -225,8 +236,6 @@ namespace VarjoVSTFrame {
 			}
 		}
 	}
-
-
 
 	VarjoVSTVideoWriterOptions make_VideoWriterOption(
 		const VideoWriterType writer_type, 
