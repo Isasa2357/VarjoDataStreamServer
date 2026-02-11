@@ -31,27 +31,20 @@ namespace {
 namespace VarjoVSTFrame {
 
 	VarjoVSTVideoWriter::VarjoVSTVideoWriter(
-		const size_t width,
-		const size_t height,
-		const size_t row_stride,
-		const VideoWriteEncodeOptions vw_encode_opt,
-		const InputFramedataPaddingOption pad_opt
-	) : width_(width),
-		height_(height),
-		row_stride_(row_stride),
-		framerate_(vw_encode_opt.framerate), 
-		out_path_(vw_encode_opt.out_path), 
-		vcontainer_(vw_encode_opt.container), 
-		encode_opt_(vw_encode_opt.encode_opt), 
-		ffmpeg_pipe_(nullptr), 
-		pad_opt_(pad_opt)
-	{
-		if (this->pad_opt_ == InputFramedataPaddingOption::WithPadding) {
-			this->tight_frameData_.resize(this->width_ * this->height_ * 3 / 2);
-		} else {
-			this->tight_frameData_.resize(0);
-		}
-	}
+		const VideoWriteEncodeOptions vw_encode_opt, 
+		const size_t row_stride, 
+		const InputFramedataPaddingOption pad_opt)
+		: width_(vw_encode_opt.width)
+		, height_(vw_encode_opt.height)
+		, row_stride_(row_stride)
+		, framerate_(vw_encode_opt.framerate)
+		, out_path_(check_out_path(vw_encode_opt.out_path, vw_encode_opt.container, vw_encode_opt.encode_opt))
+		, vcontainer_(vw_encode_opt.container)
+		, encode_opt_(vw_encode_opt.encode_opt)
+		, ffmpeg_pipe_(nullptr)
+		, pad_opt_(pad_opt)
+		, tight_frameData_(std::vector<uint8_t>(this->width_ * this->height_ * 3 / 2))
+	{}
 
 	VarjoVSTVideoWriter::~VarjoVSTVideoWriter()
 	{
@@ -99,12 +92,10 @@ namespace VarjoVSTFrame {
 	// -------------------- VarjoVST Serial Video Writer --------------------
 
 	VarjoVSTSerialVideoWriter::VarjoVSTSerialVideoWriter(
-		const size_t width,
-		const size_t height,
-		const size_t row_stride,
-		const VideoWriteEncodeOptions vw_encode_opt,
-		const InputFramedataPaddingOption pad_opt
-	) : VarjoVSTVideoWriter(width, height, row_stride, vw_encode_opt, pad_opt)
+		const VideoWriteEncodeOptions vw_encode_opt, 
+		const size_t row_stride, 
+		const InputFramedataPaddingOption pad_opt)
+		: VarjoVSTVideoWriter(vw_encode_opt, row_stride, pad_opt)
 	{}
 
 	VarjoVSTSerialVideoWriter::~VarjoVSTSerialVideoWriter() {
@@ -146,13 +137,10 @@ namespace VarjoVSTFrame {
 	// -------------------- VarjoVST Parallel Video Writer --------------------
 
 	VarjoVSTParallelVideoWriter::VarjoVSTParallelVideoWriter(
-		const size_t width,
-		const size_t height,
-		const size_t row_stride,
-		const VideoWriteEncodeOptions vw_encode_opt,
-		const InputFramedataPaddingOption pad_opt
-	) : VarjoVSTVideoWriter(width, height, row_stride, vw_encode_opt, pad_opt)
-	  , frameData_submitQue(std::deque<std::vector<uint8_t>>())
+		const VideoWriteEncodeOptions vw_encode_opt, 
+		const size_t row_stride, 
+		const InputFramedataPaddingOption pad_opt)
+		: VarjoVSTVideoWriter(vw_encode_opt, row_stride, pad_opt)
 	{}
 
 	VarjoVSTParallelVideoWriter::~VarjoVSTParallelVideoWriter() {
@@ -239,18 +227,14 @@ namespace VarjoVSTFrame {
 	}
 
 
+
 	VarjoVSTVideoWriterOptions make_VideoWriterOption(
-		const size_t width,
-		const size_t height,
-		const size_t row_stride,
+		const VideoWriterType writer_type, 
 		const VideoWriteEncodeOptions vw_encode_opt, 
-		const VideoWriterType writer_type,
+		const size_t row_stride, 
 		const InputFramedataPaddingOption pad_opt
 	) {
 		VarjoVSTVideoWriterOptions opt;
-
-		opt.width = width;
-		opt.height = height;
 		opt.row_stride = row_stride;
 		opt.vw_encode_opt = vw_encode_opt;
 		opt.writer_type = writer_type;
@@ -263,20 +247,16 @@ namespace VarjoVSTFrame {
 		if (opt.writer_type == VideoWriterType::Serial) {
 			return std::unique_ptr<VarjoVSTSerialVideoWriter>(
 				new VarjoVSTSerialVideoWriter(
-					opt.width,
-					opt.height,
-					opt.row_stride, 
 					opt.vw_encode_opt, 
+					opt.row_stride, 
 					opt.pad_opt
 				)
 			);
 		} else if (opt.writer_type == VideoWriterType::Parallel) {
 			return std::unique_ptr<VarjoVSTParallelVideoWriter>(
 				new VarjoVSTParallelVideoWriter(
-					opt.width,
-					opt.height,
-					opt.row_stride,
 					opt.vw_encode_opt,
+					opt.row_stride,
 					opt.pad_opt
 				)
 			);

@@ -20,6 +20,8 @@ namespace VarjoVSTFrame {
 		Serial, Parallel
 	};
 
+	struct VarjoVSTVideoWriterOptions;
+
 	/**
 	 * @brief VarjoのData Stream APIから取得できるVSTカメラフレームを動画として書き出すクラス
 	 * @detail
@@ -45,10 +47,8 @@ namespace VarjoVSTFrame {
 		 * @param options 動画書き出しオプション
 		 */
 		VarjoVSTVideoWriter(
-			const size_t width,
-			const size_t height,
-			const size_t row_stride,
 			const VideoWriteEncodeOptions vw_encode_opt,
+			const size_t row_stride,
 			const InputFramedataPaddingOption pad_opt
 		);
 
@@ -126,10 +126,8 @@ namespace VarjoVSTFrame {
 
 	public:
 		VarjoVSTSerialVideoWriter(
-			const size_t width,
-			const size_t height,
-			const size_t row_stride,
 			const VideoWriteEncodeOptions vw_encode_opt,
+			const size_t row_stride,
 			const InputFramedataPaddingOption pad_opt
 		);
 
@@ -150,10 +148,8 @@ namespace VarjoVSTFrame {
 
 	public:
 		VarjoVSTParallelVideoWriter(
-			const size_t width,
-			const size_t height,
-			const size_t row_stride,
 			const VideoWriteEncodeOptions vw_encode_opt,
+			const size_t row_stride,
 			const InputFramedataPaddingOption pad_opt
 		);
 
@@ -187,20 +183,16 @@ namespace VarjoVSTFrame {
 	};
 
 	struct VarjoVSTVideoWriterOptions {
-		size_t width;
-		size_t height;
-		size_t row_stride;
-		VideoWriteEncodeOptions vw_encode_opt;
 		VideoWriterType writer_type;
+		VideoWriteEncodeOptions vw_encode_opt;
+		size_t row_stride;
 		InputFramedataPaddingOption pad_opt;
 	};
 
 	VarjoVSTVideoWriterOptions make_VideoWriterOption(
-		const size_t width,
-		const size_t height,
-		const size_t row_stride,
-		const VideoWriteEncodeOptions vw_encode_opt,
 		const VideoWriterType writer_type,
+		const VideoWriteEncodeOptions vw_encode_opt,
+		const size_t row_stride,
 		const InputFramedataPaddingOption pad_opt
 	);
 
