@@ -13,6 +13,7 @@
 
 #include "utility.hpp"
 #include "varjo_vst_frame_type.hpp"
+#include "ISubmitFrame.hpp"
 
 
 namespace VarjoVSTFrame {
@@ -38,7 +39,7 @@ namespace VarjoVSTFrame {
 	 *  - 歪み補正機能の追加
 	 *  - 動画のメタデータ（タイムスタンプなど）を保存する機能の追加
 	 */
-	class VarjoVSTVideoWriter {
+	class VarjoVSTVideoWriter : public ISubmitFramedata {
 
 	public:
 
@@ -75,8 +76,10 @@ namespace VarjoVSTFrame {
 		 *  - frameDataはData Stream APIから得たフレームデータを直接入れればよい
 		 *  - 並列書き出しを有効にしている場合，内部でコピーが発生するため，move推奨．
 		 */
-		void submit_frame(const std::vector<uint8_t>& frameData);
-		void submit_frame(std::vector<uint8_t>&& frameData);
+		void submit_framedata(const Framedata& framedata, const Metadata& metadata);
+		void submit_framedata(const Framedata& framedata, Metadata&& metadata);
+		void submit_framedata(Framedata&& framedata, const Metadata& metadata);
+		void submit_framedata(Framedata&& framedata, Metadata&& metadata);
 
 		/**
 		 * @brief 動画の書き出しを終了し，ffmpegパイプを閉じる
@@ -97,7 +100,7 @@ namespace VarjoVSTFrame {
 		 *
 		 * @return 書き出しに成功したらtrue, 失敗したらfalse
 		 */
-		virtual void submit_frame_impl(std::vector<uint8_t>&& frameData) {}
+		virtual void submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) = 0;
 
 		/**
 		 * @brief ffmpegを起動するためのコマンドを取得する
@@ -142,7 +145,7 @@ namespace VarjoVSTFrame {
 		/**
 		 * @brief submit_frameの共通処理．ffmpegパイプにフレームデータを書き込む
 		 */
-		void submit_frame_impl(std::vector<uint8_t>&& frameData) override;
+		void submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) override;
 	};
 
 	class VarjoVSTParallelVideoWriter : public VarjoVSTVideoWriter {
@@ -166,7 +169,7 @@ namespace VarjoVSTFrame {
 		/**
 		 * @brief submit_frameの共通処理．提出バッファにフレームデータを追加する
 		 */
-		void submit_frame_impl(std::vector<uint8_t>&& frameData) override;
+		void submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) override;
 
 		/**
 		 * @brief 動画書き出しワーカースレッド関数

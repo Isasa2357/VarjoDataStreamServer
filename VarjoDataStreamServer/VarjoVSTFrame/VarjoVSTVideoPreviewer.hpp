@@ -12,34 +12,42 @@
 
 #include "varjo_vst_frame_type.hpp"
 #include "utility.hpp"
+#include "ISubmitFrame.hpp"
 
 namespace VarjoVSTFrame {
+
+	enum class VideoPreviewerType {
+		Serial, Parallel
+	};
 
 	/**
 	 * @brief VarjoVSTFrameの動画プレビューを行うクラス
 	 * @detail ffmpegとパイプを使用して，リアルタイムで動画プレビューを行う．
 	 */
-	class VarjoVSTVideoPreviewer {
+	class VarjoVSTVideoPreviewer : public ISubmitFramedata {
 
 	public:
 
 		VarjoVSTVideoPreviewer(
 			const size_t width,
 			const size_t height,
-			const size_t row_stride = 0
+			const size_t row_stride, 
+			const InputFramedataPaddingOption pad_opt
 		);
 
 		~VarjoVSTVideoPreviewer();
 
 		virtual bool open();
 
-		void submit_frame(const std::vector<uint8_t>& frameData);
-		void submit_frame(std::vector<uint8_t>&& frameData);
+		void submit_framedata(const Framedata& framedata, const Metadata& metadata);
+		void submit_framedata(const Framedata& framedata, Metadata&& metadata);
+		void submit_framedata(Framedata&& frameData, const Metadata& metadata);
+		void submit_framedata(Framedata&& frameData, Metadata&& metadata);
 
 		virtual void close();
 
 	protected:
-		virtual void submit_frame_impl(std::vector<uint8_t>&& frameData) {};
+		virtual void submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) = 0;
 
 		std::string get_ffmpegCmd() const;
 
@@ -47,7 +55,7 @@ namespace VarjoVSTFrame {
 		const size_t width_;
 		const size_t height_;
 		const size_t row_stride_;
-		const bool force_tight_;
+		const InputFramedataPaddingOption pad_opt_;
 
 		FILE* ffmpeg_pipe_;
 	};
@@ -58,11 +66,12 @@ namespace VarjoVSTFrame {
 		VarjoVSTSerialVideoPreviewer(
 			const size_t width,
 			const size_t height,
-			const size_t row_stride = 0
+			const size_t row_stride, 
+			const InputFramedataPaddingOption pad_opt
 		);
 
 	protected:
-		void submit_frame_impl(std::vector<uint8_t>&& frameData) override;
+		void submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) override;
 
 	protected:
 		std::vector<uint8_t> tight_frameData_;
@@ -74,7 +83,8 @@ namespace VarjoVSTFrame {
 		VarjoVSTParallelVideoPreviewer(
 			const size_t width,
 			const size_t height,
-			const size_t row_stride = 0
+			const size_t row_stride, 
+			const InputFramedataPaddingOption pad_opt
 		);
 
 		bool open() override;
@@ -83,7 +93,7 @@ namespace VarjoVSTFrame {
 
 	protected:
 
-		void submit_frame_impl(std::vector<uint8_t>&& frameData) override;
+		void submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) override;
 		void video_preview_worker();
 
 	protected:
@@ -93,6 +103,27 @@ namespace VarjoVSTFrame {
 		std::thread video_preview_worker_thread_;
 		std::atomic_bool stop_worker_signal_{true};
 	};
+
+	struct VarjoVSTVideoPreviewerOptions {
+		size_t width;
+		size_t height;
+		size_t row_stride;
+		InputFramedataPaddingOption pad_opt;
+		VideoPreviewerType previewer_type;
+	};
+
+	VarjoVSTVideoPreviewerOptions make_VarjoVSTVideoPreviewerOptions(
+		const size_t width,
+		const size_t height,
+		const size_t row_stride,
+		const InputFramedataPaddingOption pad_opt,
+		const VideoPreviewerType previewer_type
+	);
+
+	std::unique_ptr<VarjoVSTVideoPreviewer> make_VarjoVSTVideoPreviewer(
+		const VarjoVSTVideoPreviewerOptions& previewer_options
+	);
+	
 
 } // namespace VarjoVSTFrame
 

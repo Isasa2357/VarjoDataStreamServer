@@ -30,7 +30,7 @@ int main(void)
 		std::cout << "width: " << width << std::endl;
 		std::cout << "height: " << height << std::endl;
 		std::cout << "row_stride: " << row_stride << std::endl;
-		VarjoVSTFrame::VarjoVSTSerialVideoPreviewer viewer(width, height, row_stride);
+		VarjoVSTFrame::VarjoVSTSerialVideoPreviewer viewer(width, height, row_stride, VarjoVSTFrame::InputFramedataPaddingOption::WithPadding);
 
 		// construct video writer
 		auto x264_opt = VarjoVSTFrame::make_X264Options(
@@ -56,10 +56,11 @@ int main(void)
 
 			while (!ldata.first.empty()) {
 				auto f = std::move(ldata.first.front());
+				auto m = std::move(ldata.second.front());
 
-				viewer.submit_frame(f);
+				viewer.submit_framedata(f, m);
 
-				writer.submit_frame(f);
+				writer.submit_framedata(f, m);
 
 				ldata.first.pop();
 			}
