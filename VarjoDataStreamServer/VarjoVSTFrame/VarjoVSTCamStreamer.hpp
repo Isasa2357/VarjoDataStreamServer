@@ -14,6 +14,11 @@
 
 
 namespace VarjoVSTFrame {
+
+	/****************************************************************************************************
+	* @class VarjoVSTCamStreamer
+	* ****************************************************************************************************/
+
 	class VarjoVSTCamStreamer {
 	public:
 		using Frame = VarjoExamples::DataStreamer::Frame;
@@ -86,5 +91,52 @@ namespace VarjoVSTFrame {
 		std::queue<Metadata> rmetadata_que_;
 		std::mutex rframe_que_mtx_;
 	};
+
+	/****************************************************************************************************
+	* @class VarjoVSTDummyCamStreamer
+	*****************************************************************************************************/
+
+	/**
+	 * @brief 手元にVarjoがない場合にのダミーのVSTカメラストリーマークラス
+	 * @detail 保存済みのVSTカメラフレームデータを読み込み，VarjoVSTCamStreamerと同じインターフェースで提供する
+	 */
+	class VarjoVSTDummyCamStreamer {
+	public:
+		using Framedata = std::vector<uint8_t>;
+		using Metadata = VarjoExamples::DataStreamer::Frame::Metadata;
+		using Frame = VarjoExamples::DataStreamer::Frame;
+
+	public:
+		VarjoVSTDummyCamStreamer(varjo_ChannelFlag chnls=varjo_ChannelFlag_All, const size_t buffer_capacity=20, const int fps=90);
+
+		std::optional<varjo_StreamConfig> getConfig() const;
+
+		void startStream();
+
+		void stopStream();
+
+		std::pair<std::queue<Framedata>, std::queue<Metadata>> take_lframe_que();
+
+		std::pair<std::queue<Framedata>, std::queue<Metadata>> take_rframe_que();
+
+		inline varjo_ChannelFlag datastream_chnls() const { return this->chnls_; }
+		inline size_t left_frame_que_size() const { return this->lframedata_que_.size(); }
+		inline size_t right_frame_que_size() const { return this->rframedata_que_.size(); }
+		inline size_t buffer_capacity() const { return this->buffer_capacity_; }
+
+	private:
+		void onFrameReceivedworker();
+
+		const varjo_ChannelFlag	chnls_;
+
+		// for frame que
+		const size_t buffer_capacity_;
+		std::queue<Framedata> lframedata_que_;
+		std::queue<Metadata> lmetadata_que_;
+		std::mutex lframe_que_mtx_;
+		std::queue<Framedata> rframedata_que_;
+		std::queue<Metadata> rmetadata_que_;
+		std::mutex rframe_que_mtx_;
+	}
 }
 
