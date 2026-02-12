@@ -272,7 +272,7 @@ namespace nlohmann {
 
 	template<>
 	struct adl_serializer<varjo_SwapChainLimits> {
-		static void to_json(json& json, const varjo_SwapChainLimits& limits)
+		static void to_json(json& j, const varjo_SwapChainLimits& limits)
 		{
 			j["minimumNumberOfTextures"] = limits.minimumNumberOfTextures;
 			j["maximumNumberOfTextures"] = limits.maximumNumberOfTextures;
