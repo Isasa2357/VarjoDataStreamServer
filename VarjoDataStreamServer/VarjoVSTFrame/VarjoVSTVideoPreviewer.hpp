@@ -39,15 +39,12 @@ namespace VarjoVSTFrame {
 
 		virtual bool open();
 
-		void submit_framedata(const Framedata& framedata, const Metadata& metadata);
-		void submit_framedata(const Framedata& framedata, Metadata&& metadata);
-		void submit_framedata(Framedata&& frameData, const Metadata& metadata);
-		void submit_framedata(Framedata&& frameData, Metadata&& metadata);
+		void submit_framedata(const Framedata& framedata) override;
+		void submit_framedata(Framedata&& frameData) override;
 
 		virtual void close();
 
 	protected:
-		virtual void submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) = 0;
 
 		std::string get_ffmpegCmd() const;
 
@@ -71,7 +68,7 @@ namespace VarjoVSTFrame {
 		);
 
 	protected:
-		void submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) override;
+		void submit_framedata_impl(Framedata&& frameData) override;
 
 	protected:
 		std::vector<uint8_t> tight_frameData_;
@@ -93,7 +90,7 @@ namespace VarjoVSTFrame {
 
 	protected:
 
-		void submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) override;
+		void submit_framedata_impl(Framedata&& frameData) override;
 		void video_preview_worker();
 
 	protected:

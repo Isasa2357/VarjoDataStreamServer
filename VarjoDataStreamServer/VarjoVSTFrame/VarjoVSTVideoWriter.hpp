@@ -10,6 +10,7 @@
 #include <condition_variable>
 #include <mutex>
 #include <variant>
+#include <memory>
 
 #include "utility.hpp"
 #include "varjo_vst_frame_type.hpp"
@@ -76,10 +77,8 @@ namespace VarjoVSTFrame {
 		 *  - frameDataはData Stream APIから得たフレームデータを直接入れればよい
 		 *  - 並列書き出しを有効にしている場合，内部でコピーが発生するため，move推奨．
 		 */
-		void submit_framedata(const Framedata& framedata, const Metadata& metadata);
-		void submit_framedata(const Framedata& framedata, Metadata&& metadata);
-		void submit_framedata(Framedata&& framedata, const Metadata& metadata);
-		void submit_framedata(Framedata&& framedata, Metadata&& metadata);
+		void submit_framedata(const Framedata& framedata);
+		void submit_framedata(Framedata&& framedata);
 
 		/**
 		 * @brief 動画の書き出しを終了し，ffmpegパイプを閉じる
@@ -93,14 +92,7 @@ namespace VarjoVSTFrame {
 
 	protected:
 
-		/**
-		 * @brief writeFrameの共通処理
-		 *
-		 * @param frameData NV12フォーマットのフレームデータ
-		 *
-		 * @return 書き出しに成功したらtrue, 失敗したらfalse
-		 */
-		virtual void submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) = 0;
+
 
 		/**
 		 * @brief ffmpegを起動するためのコマンドを取得する
@@ -145,7 +137,7 @@ namespace VarjoVSTFrame {
 		/**
 		 * @brief submit_frameの共通処理．ffmpegパイプにフレームデータを書き込む
 		 */
-		void submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) override;
+		void submit_framedata_impl(Framedata&& frameData) override;
 	};
 
 	class VarjoVSTParallelVideoWriter : public VarjoVSTVideoWriter {
@@ -169,7 +161,7 @@ namespace VarjoVSTFrame {
 		/**
 		 * @brief submit_frameの共通処理．提出バッファにフレームデータを追加する
 		 */
-		void submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) override;
+		void submit_framedata_impl(Framedata&& frameData) override;
 
 		/**
 		 * @brief 動画書き出しワーカースレッド関数
