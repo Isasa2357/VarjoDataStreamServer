@@ -51,24 +51,14 @@ namespace VarjoVSTFrame {
 		this->close();
 	}
 
-	void VarjoVSTVideoWriter::submit_framedata(const Framedata& framedata, const Metadata& metadata)
+	void VarjoVSTVideoWriter::submit_framedata(const Framedata& framedata)
 	{
-		this->submit_framedata_impl(Framedata(framedata), Metadata(metadata));
+		this->submit_framedata_impl(Framedata(framedata));
 	}
 
-	void VarjoVSTVideoWriter::submit_framedata(const Framedata & framedata, Metadata && metadata)
+	void VarjoVSTVideoWriter::submit_framedata(Framedata && framedata)
 	{
-		this->submit_framedata_impl(Framedata(framedata), std::move(metadata));
-	}
-
-	void VarjoVSTVideoWriter::submit_framedata(Framedata && framedata, const Metadata & metadata)
-	{
-		this->submit_framedata_impl(std::move(framedata), Metadata(metadata));
-	}
-
-	void VarjoVSTVideoWriter::submit_framedata(Framedata && framedata, Metadata && metadata)
-	{
-		this->submit_framedata_impl(std::move(framedata), std::move(metadata));
+		this->submit_framedata_impl(std::move(framedata));
 	}
 
 	std::string VarjoVSTVideoWriter::get_ffmpegCmd() const
@@ -136,7 +126,7 @@ namespace VarjoVSTFrame {
 		}
 	}
 
-	void VarjoVSTSerialVideoWriter::submit_framedata_impl(Framedata&& frameData, Metadata&& metadata)
+	void VarjoVSTSerialVideoWriter::submit_framedata_impl(Framedata&& frameData)
 	{
 		if (this->pad_opt_ == InputFramedataPaddingOption::WithPadding) {
 			remove_padding(frameData, this->tight_frameData_, this->width_, this->height_, this->row_stride_);
@@ -198,7 +188,7 @@ namespace VarjoVSTFrame {
 		}
 	}
 
-	void VarjoVSTParallelVideoWriter::submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) {
+	void VarjoVSTParallelVideoWriter::submit_framedata_impl(Framedata&& frameData) {
 		{
 			std::lock_guard submitQue_lk(this->submitQue_mutex_);
 
@@ -265,7 +255,7 @@ namespace VarjoVSTFrame {
 	std::unique_ptr<VarjoVSTVideoWriter> factory_VarjoVSTVideoWriterPtr(const VarjoVSTVideoWriterOptions opt)
 	{
 		if (opt.writer_type == VideoWriterType::Serial) {
-			return std::unique_ptr<VarjoVSTSerialVideoWriter>(
+			return std::unique_ptr<VarjoVSTVideoWriter>(
 				new VarjoVSTSerialVideoWriter(
 					opt.vw_encode_opt,
 					opt.row_stride,
@@ -273,7 +263,7 @@ namespace VarjoVSTFrame {
 				)
 			);
 		} else if (opt.writer_type == VideoWriterType::Parallel) {
-			return std::unique_ptr<VarjoVSTParallelVideoWriter>(
+			return std::unique_ptr<VarjoVSTVideoWriter>(
 				new VarjoVSTParallelVideoWriter(
 					opt.vw_encode_opt,
 					opt.row_stride,
@@ -288,7 +278,7 @@ namespace VarjoVSTFrame {
 	std::unique_ptr<ISubmitFramedata> factory_ISubmitFramePtr(const VarjoVSTVideoWriterOptions opt)
 	{
 		if (opt.writer_type == VideoWriterType::Serial) {
-			return std::unique_ptr<VarjoVSTSerialVideoWriter>(
+			return std::unique_ptr<ISubmitFramedata>(
 				new VarjoVSTSerialVideoWriter(
 					opt.vw_encode_opt,
 					opt.row_stride,
@@ -296,7 +286,7 @@ namespace VarjoVSTFrame {
 				)
 			);
 		} else if (opt.writer_type == VideoWriterType::Parallel) {
-			return std::unique_ptr<VarjoVSTParallelVideoWriter>(
+			return std::unique_ptr<ISubmitFramedata>(
 				new VarjoVSTParallelVideoWriter(
 					opt.vw_encode_opt,
 					opt.row_stride,

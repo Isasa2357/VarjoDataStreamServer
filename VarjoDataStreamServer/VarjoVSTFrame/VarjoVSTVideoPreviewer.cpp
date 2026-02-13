@@ -20,24 +20,14 @@ namespace VarjoVSTFrame {
 		return this->ffmpeg_pipe_ != nullptr;
 	}
 
-	void VarjoVSTVideoPreviewer::submit_framedata(const Framedata& framedata, const Metadata& metadata)
+	void VarjoVSTVideoPreviewer::submit_framedata(const Framedata& framedata)
 	{
-		this->submit_framedata_impl(Framedata(framedata), Metadata(metadata));
+		this->submit_framedata_impl(Framedata(framedata));
 	}
 
-	void VarjoVSTVideoPreviewer::submit_framedata(const Framedata & framedata, Metadata && metadata)
+	void VarjoVSTVideoPreviewer::submit_framedata(Framedata&& frameData)
 	{
-		this->submit_framedata_impl(Framedata(framedata), Metadata(std::move(metadata)));
-	}
-
-	void VarjoVSTVideoPreviewer::submit_framedata(Framedata && frameData, const Metadata & metadata)
-	{
-		this->submit_framedata_impl(std::move(frameData), Metadata(metadata));
-	}
-
-	void VarjoVSTVideoPreviewer::submit_framedata(Framedata && frameData, Metadata && metadata)
-	{
-		this->submit_framedata_impl(std::move(frameData), std::move(metadata));
+		this->submit_framedata_impl(std::move(frameData));
 	}
 
 	void VarjoVSTVideoPreviewer::close() {
@@ -68,7 +58,7 @@ namespace VarjoVSTFrame {
 		this->tight_frameData_.resize(this->width_ * this->height_ * 3 / 2);
 	}
 
-	void VarjoVSTSerialVideoPreviewer::submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) {
+	void VarjoVSTSerialVideoPreviewer::submit_framedata_impl(Framedata&& frameData) {
 		if (this->pad_opt_ == InputFramedataPaddingOption::WithPadding) {
 			remove_padding(frameData, this->tight_frameData_, this->width_, this->height_, this->row_stride_);
 		} else {
@@ -109,7 +99,7 @@ namespace VarjoVSTFrame {
 		_pclose(this->ffmpeg_pipe_);
 	}
 
-	void VarjoVSTParallelVideoPreviewer::submit_framedata_impl(Framedata&& frameData, Metadata&& metadata) {
+	void VarjoVSTParallelVideoPreviewer::submit_framedata_impl(Framedata&& frameData) {
 		std::lock_guard<std::mutex> lock(this->submitQue_mutex_);
 		this->frameData_submitQue_.push(std::move(frameData));
 		this->submitQue_cv_.notify_all();

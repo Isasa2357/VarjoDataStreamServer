@@ -5,6 +5,12 @@
 
 namespace VarjoVSTFrame {
 
+	struct FramePair {
+		varjo_ChannelIndex channel_index;
+		Frame left;
+		Frame right;
+	};
+
 	/**
 	 * @brief 動画ファイルのコンテナを示す．
 	 */
@@ -73,5 +79,7 @@ namespace VarjoVSTFrame {
 		VideoContainer container;
 		EncodeOptions encode_opt;
 	};
+
+	
 
 } // namespace VarjoVSTFrame

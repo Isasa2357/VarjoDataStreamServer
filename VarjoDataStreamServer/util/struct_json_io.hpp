@@ -217,8 +217,6 @@ namespace nlohmann {
 			j["rightStatus"] = gaze.rightStatus;
 			j["status"] = gaze.status;
 			j["frameNumber"] = gaze.frameNumber;
-			j["leftPupilSize"] = gaze.leftPupilSize;
-			j["rightPupilSize"] = gaze.rightPupilSize;
 		}
 
 		static void from_json(const json& j, varjo_Gaze& gaze)
@@ -233,8 +231,6 @@ namespace nlohmann {
 			j.at("rightStatus").get_to(gaze.rightStatus);
 			j.at("status").get_to(gaze.status);
 			j.at("frameNumber").get_to(gaze.frameNumber);
-			j.at("leftPupilSize").get_to(gaze.leftPupilSize);
-			j.at("rightPupilSize").get_to(gaze.rightPupilSize);
 		}
 	};
 

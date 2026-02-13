@@ -14,10 +14,10 @@ int main(void)
 
 	try {
 		// セッションの開始
-		auto session = std::make_shared<Session>();
+		/*auto session = std::make_shared<Session>();
 		if (!session->isValid()) {
 			throw std::runtime_error("Failed to initialize session. Is Varjo system running?");
-		}
+		}*/
 
 		// ストリームの開始
 		
@@ -58,9 +58,9 @@ int main(void)
 				auto f = std::move(ldata.first.front());
 				auto m = std::move(ldata.second.front());
 
-				viewer.submit_framedata(f, m);
+				viewer.submit_framedata(f);
 
-				writer.submit_framedata(f, m);
+				writer.submit_framedata(f);
 
 				ldata.first.pop();
 			}
