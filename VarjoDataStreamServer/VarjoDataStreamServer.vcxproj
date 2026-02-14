@@ -111,7 +111,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>VarjoLib.lib;d3d11.lib;dxgi.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;windowscodecs.lib;freetype.lib;ImGui.lib;ImGuiBackends.lib;libboost_serialization-vc143-mt-gd-x64-1_90.lib;libboost_serialization-vc143-mt-x32-1_90.lib;libboost_serialization-vc143-mt-gd-x32-1_90.lib;libboost_serialization-vc143-mt-x64-1_90.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)\vendor\VarjoNativeSDK\lib;$(ProjectDir)vendor\FreeType\lib\x86_64\RelWithDebInfo;$(ProjectDir)\vendor\Glew\lib\x86_64\Debug;C:\Work\Task\WIP\0_宮藤研\顕微鏡縫合\スクリプト\VarjoDataStreamServer\VarjoDataStreamServer\vendor\ImGui\lib\x86_64\RelWithDebInfo;$(ProjectDir)\vendor\OpenVR\lib\x86_64\Debug;$(ProjectDir)vendor\boost\lib;$(ProjectDir)vendor\Glew\lib\x86_64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\vendor\VarjoNativeSDK\lib;$(ProjectDir)vendor\FreeType\lib\x86_64\RelWithDebInfo;$(ProjectDir)\vendor\Glew\lib\x86_64\Debug;$(ProjectDir)vendor\ImGui\lib\x86_64\RelWithDebInfo;$(ProjectDir)\vendor\OpenVR\lib\x86_64\Debug;$(ProjectDir)vendor\boost\lib;$(ProjectDir)vendor\Glew\lib\x86_64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,6 +139,7 @@
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="Undistorter.cpp" />
     <ClCompile Include="VarjoDataStreamServer.cpp" />
+    <ClCompile Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTMetadataWriter.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTVideoPreviewer.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTVideoWriter.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="VarjoDataStreamServer.hpp" />
     <ClInclude Include="VarjoVSTFrame\ISubmitFrame.hpp" />
     <ClInclude Include="VarjoVSTFrame\utility.hpp" />
+    <ClInclude Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.hpp" />
     <ClInclude Include="VarjoVSTFrame\VarjoVSTMetadataWriter.hpp" />
     <ClInclude Include="VarjoVSTFrame\VarjoVSTVideoPreviewer.hpp" />
     <ClInclude Include="VarjoVSTFrame\VarjoVSTVideoWriter.hpp" />
