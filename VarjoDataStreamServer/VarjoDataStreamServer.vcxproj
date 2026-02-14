@@ -151,6 +151,7 @@
     <ClInclude Include="Globals.hpp" />
     <ClInclude Include="Session.hpp" />
     <ClInclude Include="Undistorter.hpp" />
+    <ClInclude Include="util\BorrowedOrOwned.hpp" />
     <ClInclude Include="util\filesystem_util.hpp" />
     <ClInclude Include="util\struct_json_io.hpp" />
     <ClInclude Include="util\vec_util.hpp" />
