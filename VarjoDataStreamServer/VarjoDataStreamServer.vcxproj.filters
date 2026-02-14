@@ -74,12 +74,6 @@
     <ClInclude Include="Session.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="VarjoVSTFrame\utility.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="VarjoVSTFrame\ISubmitFrame.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="util\filesystem_util.hpp">
       <Filter>ヘッダー ファイル\util</Filter>
     </ClInclude>
@@ -111,6 +105,15 @@
       <Filter>ヘッダー ファイル\VSTFrame</Filter>
     </ClInclude>
     <ClInclude Include="VarjoVSTFrame\DataLogger.hpp">
+      <Filter>ヘッダー ファイル\VSTFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoVSTFrame\ISubmitFrame.hpp">
+      <Filter>ヘッダー ファイル\VSTFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="util\BorrowedOrOwned.hpp">
+      <Filter>ヘッダー ファイル\util</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoVSTFrame\utility.hpp">
       <Filter>ヘッダー ファイル\VSTFrame</Filter>
     </ClInclude>
   </ItemGroup>
