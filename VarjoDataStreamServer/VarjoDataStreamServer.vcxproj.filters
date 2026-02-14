@@ -57,6 +57,9 @@
     <ClCompile Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.cpp">
       <Filter>ソース ファイル\VSTFrame</Filter>
     </ClCompile>
+    <ClCompile Include="VarjoVSTFrame\DataLogger.cpp">
+      <Filter>ソース ファイル\VSTFrame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStreamer.hpp">
@@ -105,6 +108,9 @@
       <Filter>ヘッダー ファイル\VSTFrame</Filter>
     </ClInclude>
     <ClInclude Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.hpp">
+      <Filter>ヘッダー ファイル\VSTFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoVSTFrame\DataLogger.hpp">
       <Filter>ヘッダー ファイル\VSTFrame</Filter>
     </ClInclude>
   </ItemGroup>
