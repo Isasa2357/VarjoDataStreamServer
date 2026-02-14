@@ -139,6 +139,7 @@
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="Undistorter.cpp" />
     <ClCompile Include="VarjoDataStreamServer.cpp" />
+    <ClCompile Include="VarjoVSTFrame\DataLogger.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTMetadataWriter.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTVideoPreviewer.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="util\struct_json_io.hpp" />
     <ClInclude Include="util\vec_util.hpp" />
     <ClInclude Include="VarjoDataStreamServer.hpp" />
+    <ClInclude Include="VarjoVSTFrame\DataLogger.hpp" />
     <ClInclude Include="VarjoVSTFrame\ISubmitFrame.hpp" />
     <ClInclude Include="VarjoVSTFrame\utility.hpp" />
     <ClInclude Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.hpp" />
