@@ -28,11 +28,17 @@
     <Filter Include="ヘッダー ファイル\VarjoExample">
       <UniqueIdentifier>{01b4f377-aada-42a6-87e6-cada401736bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\VarjoEyeTracking">
+    <Filter Include="ソース ファイル\FrameInfo">
+      <UniqueIdentifier>{2c2aa9ea-9bd2-47ce-b0b7-a80fa73a5d17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\EyeTracking">
       <UniqueIdentifier>{dbdabd31-0efa-4926-b6ca-b713ecaf6bfa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\VarjoEyeTracking">
+    <Filter Include="ヘッダー ファイル\EyeTracking">
       <UniqueIdentifier>{5d7b548f-860c-4f51-aa1e-347e46073413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\FrameInfo">
+      <UniqueIdentifier>{da65f85f-c4ff-49a7-a898-3c5db1d72b44}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,10 +85,22 @@
       <Filter>ソース ファイル\VarjoExample</Filter>
     </ClCompile>
     <ClCompile Include="VarjoEyeTracking\EyeTrackingDataCsvWriter.cpp">
-      <Filter>ソース ファイル\VarjoEyeTracking</Filter>
+      <Filter>ソース ファイル\EyeTracking</Filter>
     </ClCompile>
     <ClCompile Include="VarjoEyeTracking\EyeTrackingDataLogger.cpp">
-      <Filter>ソース ファイル\VarjoEyeTracking</Filter>
+      <Filter>ソース ファイル\EyeTracking</Filter>
+    </ClCompile>
+    <ClCompile Include="VarjoFrameInfo\FrameInfoDataStreamer.cpp">
+      <Filter>ソース ファイル\FrameInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="VarjoExample\SyncView.cpp">
+      <Filter>ソース ファイル\VarjoExample</Filter>
+    </ClCompile>
+    <ClCompile Include="VarjoExample\HeadlessView.cpp">
+      <Filter>ソース ファイル\VarjoExample</Filter>
+    </ClCompile>
+    <ClCompile Include="VarjoEyeTracking\EyeTrackingDataStreamer.cpp">
+      <Filter>ソース ファイル\EyeTracking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,17 +164,35 @@
     <ClInclude Include="VarjoExample\GazeTracking.hpp">
       <Filter>ヘッダー ファイル\VarjoExample</Filter>
     </ClInclude>
-    <ClInclude Include="VarjoEyeTracking\types.hpp">
-      <Filter>ヘッダー ファイル\VarjoEyeTracking</Filter>
-    </ClInclude>
     <ClInclude Include="VarjoEyeTracking\ISubmit.hpp">
-      <Filter>ヘッダー ファイル\VarjoEyeTracking</Filter>
+      <Filter>ヘッダー ファイル\EyeTracking</Filter>
     </ClInclude>
     <ClInclude Include="VarjoEyeTracking\EyeTrackingDataCsvWriter.hpp">
-      <Filter>ヘッダー ファイル\VarjoEyeTracking</Filter>
+      <Filter>ヘッダー ファイル\EyeTracking</Filter>
     </ClInclude>
     <ClInclude Include="VarjoEyeTracking\EyeTrackingDataLogger.hpp">
-      <Filter>ヘッダー ファイル\VarjoEyeTracking</Filter>
+      <Filter>ヘッダー ファイル\EyeTracking</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoFrameInfo\FrameInfo_type.hpp">
+      <Filter>ヘッダー ファイル\FrameInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoFrameInfo\FrameInfoDataStreamer.hpp">
+      <Filter>ヘッダー ファイル\FrameInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoExample\HeadlessView.hpp">
+      <Filter>ヘッダー ファイル\VarjoExample</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoExample\SyncView.hpp">
+      <Filter>ヘッダー ファイル\VarjoExample</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoEyeTracking\EyeTracking_types.hpp">
+      <Filter>ヘッダー ファイル\EyeTracking</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoEyeTracking\EyeTrackingDataStreamer.hpp">
+      <Filter>ヘッダー ファイル\EyeTracking</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoEyeTracking\EyeTracking_utility.hpp">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
