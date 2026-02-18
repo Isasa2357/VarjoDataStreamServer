@@ -78,10 +78,10 @@
     <ClCompile Include="VarjoExample\GazeTracking.cpp">
       <Filter>ソース ファイル\VarjoExample</Filter>
     </ClCompile>
-    <ClCompile Include="VarjoEyeTracking\DaaLogger.cpp">
+    <ClCompile Include="VarjoEyeTracking\EyeTrackingDataCsvWriter.cpp">
       <Filter>ソース ファイル\VarjoEyeTracking</Filter>
     </ClCompile>
-    <ClCompile Include="VarjoEyeTracking\CsvWriter.cpp">
+    <ClCompile Include="VarjoEyeTracking\EyeTrackingDataLogger.cpp">
       <Filter>ソース ファイル\VarjoEyeTracking</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,13 +149,13 @@
     <ClInclude Include="VarjoEyeTracking\types.hpp">
       <Filter>ヘッダー ファイル\VarjoEyeTracking</Filter>
     </ClInclude>
-    <ClInclude Include="VarjoEyeTracking\DataLogger.hpp">
-      <Filter>ヘッダー ファイル\VarjoEyeTracking</Filter>
-    </ClInclude>
     <ClInclude Include="VarjoEyeTracking\ISubmit.hpp">
       <Filter>ヘッダー ファイル\VarjoEyeTracking</Filter>
     </ClInclude>
-    <ClInclude Include="VarjoEyeTracking\CsvWriter.hpp">
+    <ClInclude Include="VarjoEyeTracking\EyeTrackingDataCsvWriter.hpp">
+      <Filter>ヘッダー ファイル\VarjoEyeTracking</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoEyeTracking\EyeTrackingDataLogger.hpp">
       <Filter>ヘッダー ファイル\VarjoEyeTracking</Filter>
     </ClInclude>
   </ItemGroup>
