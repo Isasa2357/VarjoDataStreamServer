@@ -105,7 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;_UNICODE;UNICODE;NOMINMAX;GLEW_STATIC;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)\vendor\boost\include;$(ProjectDir)vendor\VarjoNativeSDK\include;$(ProjectDir)\vendor\OpenVR\include;$(ProjectDir)vendor\Json\include;$(ProjectDir)\vendor\ImGui\include;$(ProjectDir)\D3DX12\include;$(ProjectDir)vendor\GLM\include;$(ProjectDir)\vendor\Glew\include;$(ProjectDir)vendor\FreeType\include;$(ProjectDir)\vendor\cxxopts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\vendor\boost\include;$(ProjectDir)vendor\VarjoNativeSDK\include;$(ProjectDir)\vendor\OpenVR\include;$(ProjectDir)vendor\Json\include;$(ProjectDir)\vendor\ImGui\include;$(ProjectDir)\D3DX12\include;$(ProjectDir)vendor\GLM\include;$(ProjectDir)vendor\Glew\include;$(ProjectDir)vendor\FreeType\include;$(ProjectDir)\vendor\cxxopts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
