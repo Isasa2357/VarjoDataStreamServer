@@ -40,7 +40,9 @@ namespace VarjoEyeTracking {
 	std::deque<EyeTrackingData> EyeTrackingDataStreamer::geteyeTrackingData() const
 	{
 		// varjo_Gazeとvarjo_EyeMeasurementsのペアのベクタを取得
-		auto gaze_measurements_data = getGazeDataWithEyeMeasurements();
+		auto gaze_measurements_datas = getGazeDataWithEyeMeasurements();
+		auto gaze_datas = std::move(gaze_measurements_datas.first);
+		auto measurements_datas = std::move(gaze_measurements_datas.second);
 
 		// rendering gazeデータを取得
 		auto rendering_gaze_data = getRenderingGazeData();
@@ -49,6 +51,25 @@ namespace VarjoEyeTracking {
 		auto [user_ipd, headset_ipd] = getIPDData();
 
 		std::deque<EyeTrackingData> ret;
+
+		while (!(gaze_datas.empty() || measurements_datas.empty())) {
+			auto gaze_data = std::move(gaze_datas.front());
+			auto measurements_data = std::move(measurements_datas.front());
+			auto cap_time = gaze_data.captureTime;
+
+			EyeTrackingData etd{
+				.unix_timestamp = varjo_ConvertToUnixTime(*(this->session_), cap_time),
+				.gaze = gaze_data,
+				.rendering_gaze = rendering_gaze_data,
+				.eyeMeasurements = measurements_data,
+				.userIPD = user_ipd,
+				.headsetIPD = headset_ipd
+			};
+
+			ret.push_back(etd);
+		}
+
+		return ret;
 	}
 
 	void EyeTrackingDataStreamer::initializeGazeTracking(const OutputFilterType outputFilterType, const OutputFrequency outputFrequency) const
