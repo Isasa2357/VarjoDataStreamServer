@@ -141,8 +141,8 @@
     <ClCompile Include="VarjoExample\Globals.cpp" />
     <ClCompile Include="VarjoExample\Session.cpp" />
     <ClCompile Include="VarjoExample\Undistorter.cpp" />
-    <ClCompile Include="VarjoEyeTracking\CsvWriter.cpp" />
-    <ClCompile Include="VarjoEyeTracking\DaaLogger.cpp" />
+    <ClCompile Include="VarjoEyeTracking\EyeTrackingDataCsvWriter.cpp" />
+    <ClCompile Include="VarjoEyeTracking\EyeTrackingDataLogger.cpp" />
     <ClCompile Include="VarjoVSTFrame\DataLogger.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTMetadataWriter.cpp" />
@@ -162,8 +162,8 @@
     <ClInclude Include="VarjoExample\Globals.hpp" />
     <ClInclude Include="VarjoExample\Session.hpp" />
     <ClInclude Include="VarjoExample\Undistorter.hpp" />
-    <ClInclude Include="VarjoEyeTracking\CsvWriter.hpp" />
-    <ClInclude Include="VarjoEyeTracking\DataLogger.hpp" />
+    <ClInclude Include="VarjoEyeTracking\EyeTrackingDataCsvWriter.hpp" />
+    <ClInclude Include="VarjoEyeTracking\EyeTrackingDataLogger.hpp" />
     <ClInclude Include="VarjoEyeTracking\ISubmit.hpp" />
     <ClInclude Include="VarjoEyeTracking\types.hpp" />
     <ClInclude Include="VarjoVSTFrame\DataLogger.hpp" />
