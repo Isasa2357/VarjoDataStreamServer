@@ -22,7 +22,7 @@ namespace VarjoEyeTracking {
 
 		GazeTrackingStatus getStatus() const;
 
-		std::deque<EyeTrackingData> geteyeTrackingData() const;
+		std::deque<EyeTrackingData> getEyeTrackingData() const;
 
 	private:
 

@@ -146,8 +146,10 @@
     <ClCompile Include="VarjoEyeTracking\EyeTrackingDataCsvWriter.cpp" />
     <ClCompile Include="VarjoEyeTracking\EyeTrackingDataLogger.cpp" />
     <ClCompile Include="VarjoEyeTracking\EyeTrackingDataStreamer.cpp" />
+    <ClCompile Include="VarjoFrameInfo\FrameInfoDataCsvWriter.cpp" />
+    <ClCompile Include="VarjoFrameInfo\FrameInfoDataLogger.cpp" />
     <ClCompile Include="VarjoFrameInfo\FrameInfoDataStreamer.cpp" />
-    <ClCompile Include="VarjoVSTFrame\DataLogger.cpp" />
+    <ClCompile Include="VarjoVSTFrame\VSTFrameDataLogger.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTMetadataWriter.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTVideoPreviewer.cpp" />
@@ -159,6 +161,7 @@
     <ClInclude Include="util\filesystem_util.hpp" />
     <ClInclude Include="util\PerformanceChecker.hpp" />
     <ClInclude Include="util\struct_json_io.hpp" />
+    <ClInclude Include="util\to_string.hpp" />
     <ClInclude Include="util\vec_util.hpp" />
     <ClInclude Include="VarjoDataStreamServer.hpp" />
     <ClInclude Include="VarjoExample\DataStreamer.hpp" />
@@ -171,12 +174,14 @@
     <ClInclude Include="VarjoEyeTracking\EyeTrackingDataCsvWriter.hpp" />
     <ClInclude Include="VarjoEyeTracking\EyeTrackingDataLogger.hpp" />
     <ClInclude Include="VarjoEyeTracking\EyeTrackingDataStreamer.hpp" />
-    <ClInclude Include="VarjoEyeTracking\EyeTracking_utility.hpp" />
     <ClInclude Include="VarjoEyeTracking\ISubmit.hpp" />
     <ClInclude Include="VarjoEyeTracking\EyeTracking_types.hpp" />
+    <ClInclude Include="VarjoFrameInfo\FrameInfoDataCsvWriter.hpp" />
+    <ClInclude Include="VarjoFrameInfo\FrameInfoDataLogger.hpp" />
     <ClInclude Include="VarjoFrameInfo\FrameInfoDataStreamer.hpp" />
-    <ClInclude Include="VarjoFrameInfo\FrameInfo_type.hpp" />
-    <ClInclude Include="VarjoVSTFrame\DataLogger.hpp" />
+    <ClInclude Include="VarjoFrameInfo\FrameInfo_types.hpp" />
+    <ClInclude Include="VarjoFrameInfo\ISubmitFrameInfo.hpp" />
+    <ClInclude Include="VarjoVSTFrame\VSTFrameDataLogger.hpp" />
     <ClInclude Include="VarjoVSTFrame\ISubmitFrame.hpp" />
     <ClInclude Include="VarjoVSTFrame\utility.hpp" />
     <ClInclude Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.hpp" />

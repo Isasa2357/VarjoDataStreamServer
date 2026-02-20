@@ -63,7 +63,7 @@
     <ClCompile Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.cpp">
       <Filter>ソース ファイル\VSTFrame</Filter>
     </ClCompile>
-    <ClCompile Include="VarjoVSTFrame\DataLogger.cpp">
+    <ClCompile Include="VarjoVSTFrame\VSTFrameDataLogger.cpp">
       <Filter>ソース ファイル\VSTFrame</Filter>
     </ClCompile>
     <ClCompile Include="util\PerformanceChecker.cpp">
@@ -102,6 +102,12 @@
     <ClCompile Include="VarjoEyeTracking\EyeTrackingDataStreamer.cpp">
       <Filter>ソース ファイル\EyeTracking</Filter>
     </ClCompile>
+    <ClCompile Include="VarjoFrameInfo\FrameInfoDataCsvWriter.cpp">
+      <Filter>ソース ファイル\FrameInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="VarjoFrameInfo\FrameInfoDataLogger.cpp">
+      <Filter>ソース ファイル\FrameInfo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="util\filesystem_util.hpp">
@@ -114,9 +120,6 @@
       <Filter>ヘッダー ファイル\util</Filter>
     </ClInclude>
     <ClInclude Include="VarjoVSTFrame\varjo_vst_frame_type.hpp">
-      <Filter>ヘッダー ファイル\VSTFrame</Filter>
-    </ClInclude>
-    <ClInclude Include="VarjoDataStreamServer.hpp">
       <Filter>ヘッダー ファイル\VSTFrame</Filter>
     </ClInclude>
     <ClInclude Include="VarjoVSTFrame\VarjoVSTCamStreamer.hpp">
@@ -134,7 +137,7 @@
     <ClInclude Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.hpp">
       <Filter>ヘッダー ファイル\VSTFrame</Filter>
     </ClInclude>
-    <ClInclude Include="VarjoVSTFrame\DataLogger.hpp">
+    <ClInclude Include="VarjoVSTFrame\VSTFrameDataLogger.hpp">
       <Filter>ヘッダー ファイル\VSTFrame</Filter>
     </ClInclude>
     <ClInclude Include="VarjoVSTFrame\ISubmitFrame.hpp">
@@ -173,7 +176,7 @@
     <ClInclude Include="VarjoEyeTracking\EyeTrackingDataLogger.hpp">
       <Filter>ヘッダー ファイル\EyeTracking</Filter>
     </ClInclude>
-    <ClInclude Include="VarjoFrameInfo\FrameInfo_type.hpp">
+    <ClInclude Include="VarjoFrameInfo\FrameInfo_types.hpp">
       <Filter>ヘッダー ファイル\FrameInfo</Filter>
     </ClInclude>
     <ClInclude Include="VarjoFrameInfo\FrameInfoDataStreamer.hpp">
@@ -191,8 +194,20 @@
     <ClInclude Include="VarjoEyeTracking\EyeTrackingDataStreamer.hpp">
       <Filter>ヘッダー ファイル\EyeTracking</Filter>
     </ClInclude>
-    <ClInclude Include="VarjoEyeTracking\EyeTracking_utility.hpp">
+    <ClInclude Include="util\to_string.hpp">
+      <Filter>ヘッダー ファイル\util</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoDataStreamServer.hpp">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoFrameInfo\FrameInfoDataCsvWriter.hpp">
+      <Filter>ヘッダー ファイル\FrameInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoFrameInfo\ISubmitFrameInfo.hpp">
+      <Filter>ヘッダー ファイル\FrameInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoFrameInfo\FrameInfoDataLogger.hpp">
+      <Filter>ヘッダー ファイル\FrameInfo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

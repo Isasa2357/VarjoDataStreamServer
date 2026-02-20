@@ -130,7 +130,6 @@ std::vector<std::pair<varjo_Gaze, varjo_EyeMeasurements>> GazeTracking::getGazeD
         for (int32_t i = 0; i < newItems; ++i) {
             output.push_back({gazeArray[i], eyeMeasurementsArray[i]});
         }
-		printf("new items: %d\n", newItems);
     } while (newItems == c_growStep);
 
     return output;
