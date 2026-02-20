@@ -4,6 +4,7 @@
 #include <optional>
 #include <string>
 #include <deque>
+#include <array>
 
 #include "../VarjoExample/Session.hpp"
 #include "EyeTracking_types.hpp"
@@ -27,15 +28,24 @@ namespace VarjoEyeTracking {
 
 		void initializeGazeTracking(const OutputFilterType outputFilterType, const OutputFrequency outputFrequency) const;
 
-		std::pair<std::vector<varjo_Gaze>, std::vector<varjo_EyeMeasurements>> getGazeDataWithEyeMeasurements() const;
+		std::pair<std::deque<varjo_Gaze>, std::deque<varjo_EyeMeasurements>> getGazeDataWithEyeMeasurements() const;
 
-		std::vector<varjo_Gaze> getRenderingGazeData() const;
+		varjo_Gaze getRenderingGazeData() const;
 
 		std::pair<std::optional<double>, std::optional<double>> getIPDData() const;
 
 	private:
-		const std::shared_ptr<Session> m_session;
+		const std::shared_ptr<Session> session_;
 		const OutputFilterType outputFilterType_;
 		const OutputFrequency outputFrequency_;
 	};
+
+	struct EyeTrackingDataStreamerOptions {
+		const std::shared_ptr<Session> session;
+		const OutputFilterType outputFilterType;
+		const OutputFrequency outputFrequency;
+	};
+
+	EyeTrackingDataStreamer make_EyeTrackingDataStreamer(const EyeTrackingDataStreamerOptions& opt);
+	std::unique_ptr<EyeTrackingDataStreamer> make_EyeTrackingDataStreamerPtr(const EyeTrackingDataStreamerOptions& opt);
 }
