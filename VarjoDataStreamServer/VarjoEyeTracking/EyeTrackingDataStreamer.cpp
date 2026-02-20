@@ -144,4 +144,14 @@ namespace VarjoEyeTracking {
 	}
 
 
+	EyeTrackingDataStreamer make_EyeTrackingDataStreamer(const EyeTrackingDataStreamerOptions& opt)
+	{
+		return EyeTrackingDataStreamer(opt.session, opt.outputFilterType, opt.outputFrequency);
+	}
+
+	std::unique_ptr<EyeTrackingDataStreamer> make_EyeTrackingDataStreamerPtr(const EyeTrackingDataStreamerOptions& opt)
+	{
+		return std::unique_ptr<EyeTrackingDataStreamer>(new EyeTrackingDataStreamer(opt.session, opt.outputFilterType, opt.outputFrequency));
+	}
+
 }

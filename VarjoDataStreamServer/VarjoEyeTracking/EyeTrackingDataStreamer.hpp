@@ -39,4 +39,13 @@ namespace VarjoEyeTracking {
 		const OutputFilterType outputFilterType_;
 		const OutputFrequency outputFrequency_;
 	};
+
+	struct EyeTrackingDataStreamerOptions {
+		const std::shared_ptr<Session> session;
+		const OutputFilterType outputFilterType;
+		const OutputFrequency outputFrequency;
+	};
+
+	EyeTrackingDataStreamer make_EyeTrackingDataStreamer(const EyeTrackingDataStreamerOptions& opt);
+	std::unique_ptr<EyeTrackingDataStreamer> make_EyeTrackingDataStreamerPtr(const EyeTrackingDataStreamerOptions& opt);
 }
