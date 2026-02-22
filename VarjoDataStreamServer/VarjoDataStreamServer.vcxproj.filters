@@ -40,6 +40,12 @@
     <Filter Include="ヘッダー ファイル\FrameInfo">
       <UniqueIdentifier>{da65f85f-c4ff-49a7-a898-3c5db1d72b44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Timestamp">
+      <UniqueIdentifier>{1d57ead1-1a41-4a3d-95ee-2ec343c3688c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Timestamp">
+      <UniqueIdentifier>{f17d6df7-729d-4629-bfd5-0e64c410a9b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -107,6 +113,15 @@
     </ClCompile>
     <ClCompile Include="VarjoFrameInfo\FrameInfoDataLogger.cpp">
       <Filter>ソース ファイル\FrameInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="VarjoTimestamp\TimestampCsvWriter.cpp">
+      <Filter>ソース ファイル\Timestamp</Filter>
+    </ClCompile>
+    <ClCompile Include="VarjoTimestamp\TimestampDataLogger.cpp">
+      <Filter>ソース ファイル\Timestamp</Filter>
+    </ClCompile>
+    <ClCompile Include="VarjoTimestamp\TimestampDataStreamer.cpp">
+      <Filter>ソース ファイル\Timestamp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +223,21 @@
     </ClInclude>
     <ClInclude Include="VarjoFrameInfo\FrameInfoDataLogger.hpp">
       <Filter>ヘッダー ファイル\FrameInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoTimestamp\TimestampCsvWriter.hpp">
+      <Filter>ヘッダー ファイル\Timestamp</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoTimestamp\TimestampDataLogger.hpp">
+      <Filter>ヘッダー ファイル\Timestamp</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoTimestamp\TimestampDataStreamer.hpp">
+      <Filter>ヘッダー ファイル\Timestamp</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoTimestamp\Timestamp_types.hpp">
+      <Filter>ヘッダー ファイル\Timestamp</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoTimestamp\ISubmitTimestamp.hpp">
+      <Filter>ヘッダー ファイル\Timestamp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

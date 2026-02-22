@@ -149,6 +149,9 @@
     <ClCompile Include="VarjoFrameInfo\FrameInfoDataCsvWriter.cpp" />
     <ClCompile Include="VarjoFrameInfo\FrameInfoDataLogger.cpp" />
     <ClCompile Include="VarjoFrameInfo\FrameInfoDataStreamer.cpp" />
+    <ClCompile Include="VarjoTimestamp\TimestampCsvWriter.cpp" />
+    <ClCompile Include="VarjoTimestamp\TimestampDataLogger.cpp" />
+    <ClCompile Include="VarjoTimestamp\TimestampDataStreamer.cpp" />
     <ClCompile Include="VarjoVSTFrame\VSTFrameDataLogger.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTFrameDispatcher.cpp" />
     <ClCompile Include="VarjoVSTFrame\VarjoVSTMetadataWriter.cpp" />
@@ -181,6 +184,11 @@
     <ClInclude Include="VarjoFrameInfo\FrameInfoDataStreamer.hpp" />
     <ClInclude Include="VarjoFrameInfo\FrameInfo_types.hpp" />
     <ClInclude Include="VarjoFrameInfo\ISubmitFrameInfo.hpp" />
+    <ClInclude Include="VarjoTimestamp\ISubmitTimestamp.hpp" />
+    <ClInclude Include="VarjoTimestamp\TimestampCsvWriter.hpp" />
+    <ClInclude Include="VarjoTimestamp\TimestampDataLogger.hpp" />
+    <ClInclude Include="VarjoTimestamp\TimestampDataStreamer.hpp" />
+    <ClInclude Include="VarjoTimestamp\Timestamp_types.hpp" />
     <ClInclude Include="VarjoVSTFrame\VSTFrameDataLogger.hpp" />
     <ClInclude Include="VarjoVSTFrame\ISubmitFrame.hpp" />
     <ClInclude Include="VarjoVSTFrame\utility.hpp" />
