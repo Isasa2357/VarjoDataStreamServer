@@ -46,6 +46,12 @@
     <Filter Include="ヘッダー ファイル\Timestamp">
       <UniqueIdentifier>{f17d6df7-729d-4629-bfd5-0e64c410a9b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\EyeCam">
+      <UniqueIdentifier>{9035f83c-acd8-46a0-8e17-51917b361f4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\EyeCam">
+      <UniqueIdentifier>{f6666e77-4abf-4583-b824-41e454f54803}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -122,6 +128,15 @@
     </ClCompile>
     <ClCompile Include="VarjoTimestamp\TimestampDataStreamer.cpp">
       <Filter>ソース ファイル\Timestamp</Filter>
+    </ClCompile>
+    <ClCompile Include="VarjoEyeCam\EyeCamDataStreamer.cpp">
+      <Filter>ソース ファイル\EyeCam</Filter>
+    </ClCompile>
+    <ClCompile Include="VarjoEyeCam\EyeCamVideoWriter.cpp">
+      <Filter>ソース ファイル\EyeCam</Filter>
+    </ClCompile>
+    <ClCompile Include="VarjoEyeCam\EyeCamVideoPreviewer.cpp">
+      <Filter>ソース ファイル\EyeCam</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +253,24 @@
     </ClInclude>
     <ClInclude Include="VarjoTimestamp\ISubmitTimestamp.hpp">
       <Filter>ヘッダー ファイル\Timestamp</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoEyeCam\EyeCam_types.hpp">
+      <Filter>ヘッダー ファイル\EyeCam</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoEyeCam\EyeCam_util.hpp">
+      <Filter>ヘッダー ファイル\EyeCam</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoEyeCam\EyeCamDataStreamer.hpp">
+      <Filter>ヘッダー ファイル\EyeCam</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoEyeCam\EyeCamVideoWriter.hpp">
+      <Filter>ヘッダー ファイル\EyeCam</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoEyeCam\ISubmitEyeCam.hpp">
+      <Filter>ヘッダー ファイル\EyeCam</Filter>
+    </ClInclude>
+    <ClInclude Include="VarjoEyeCam\EyeCamVideoPreviewer.hpp">
+      <Filter>ヘッダー ファイル\EyeCam</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

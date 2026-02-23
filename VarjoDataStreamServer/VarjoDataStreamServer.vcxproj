@@ -143,6 +143,9 @@
     <ClCompile Include="VarjoExample\Session.cpp" />
     <ClCompile Include="VarjoExample\SyncView.cpp" />
     <ClCompile Include="VarjoExample\Undistorter.cpp" />
+    <ClCompile Include="VarjoEyeCam\EyeCamDataStreamer.cpp" />
+    <ClCompile Include="VarjoEyeCam\EyeCamVideoPreviewer.cpp" />
+    <ClCompile Include="VarjoEyeCam\EyeCamVideoWriter.cpp" />
     <ClCompile Include="VarjoEyeTracking\EyeTrackingDataCsvWriter.cpp" />
     <ClCompile Include="VarjoEyeTracking\EyeTrackingDataLogger.cpp" />
     <ClCompile Include="VarjoEyeTracking\EyeTrackingDataStreamer.cpp" />
@@ -174,6 +177,12 @@
     <ClInclude Include="VarjoExample\Session.hpp" />
     <ClInclude Include="VarjoExample\SyncView.hpp" />
     <ClInclude Include="VarjoExample\Undistorter.hpp" />
+    <ClInclude Include="VarjoEyeCam\EyeCamDataStreamer.hpp" />
+    <ClInclude Include="VarjoEyeCam\EyeCamVideoPreviewer.hpp" />
+    <ClInclude Include="VarjoEyeCam\EyeCamVideoWriter.hpp" />
+    <ClInclude Include="VarjoEyeCam\EyeCam_types.hpp" />
+    <ClInclude Include="VarjoEyeCam\EyeCam_util.hpp" />
+    <ClInclude Include="VarjoEyeCam\ISubmitEyeCam.hpp" />
     <ClInclude Include="VarjoEyeTracking\EyeTrackingDataCsvWriter.hpp" />
     <ClInclude Include="VarjoEyeTracking\EyeTrackingDataLogger.hpp" />
     <ClInclude Include="VarjoEyeTracking\EyeTrackingDataStreamer.hpp" />
